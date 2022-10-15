@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeleDoc</title>
+  <link rel = "icon" th:href = "@{/favicon.png}">
+  <style>
+
+    html, body
+    {
+      height: 100%;
+    }
+    body
+    {
+      /*background-image: url('../../static/index-bg-img.png');*/
+      display: flex;
+      /*background-position: center;*/
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+      font-family: sans-serif;
+      overflow-y: hidden;
+    }
+
+    img
+    {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h3
+    {
+      font-weight: lighter;
+      text-align: center;
+    }
+
+    button
+    {
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0.5rem;
+      width: 12rem;
+      text-align: left;
+      background-color: #0d76ae;
+      color: white;
+      border: 1px solid #0d76ae;
+      border-radius: 0.2rem;
+      padding: 10px 5px;
+      display: flex;
+      font-size: 0.9rem;
+      transition: background-color 20ms linear;
+      cursor: pointer;
+    }
+
+    button:hover
+    {
+      border: 1px solid white;
+      background-color: rgba(72,187,237,255);
+    }
+
+    a
+    {
+      text-decoration: none;
+    }
+
+    div
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .icons
+    {
+      display: flex;
+      width: 25%;
+      flex-direction: row-reverse;
+    }
+    .text
+    {
+      width: 75%;
+    }
+  </style>
+</head>
+<body th:style="'background: url(/index-bg-img.png);'">
+<img alt = "logo" th:src="@{/logo1.PNG}" width = "24%">
+<h3>Welcome</h3>
+<div>
+  <a href = "/patient-login">
+    <button><span class="text">Sign in as Patient</span><span class="icons">🤒</span></button>
+  </a>
+  <a href = "/doctor-login">
+    <button><span class="text">Sign in as Doctor</span><span class="icons">👨‍⚕️</span></button>
+  </a>
+  <a href = "/admin-login">
+    <button><span class="text">Sign in as Admin</span><span class="icons">🔑</span></button>
+  </a>
+  <a href = "/patient-register">
+    <button><span class="text">Register as Patient</span><span class="icons">🤒</span></button>
+  </a>
+  <a href = "/doctor-register">
+    <button><span class="text">Register as Doctor</span><span class="icons">👨‍⚕️</span></button>
+  </a>
+</div>
+</body>
+</html>

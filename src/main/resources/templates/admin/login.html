@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeleDoc</title>
+    <link rel = "icon" th:href = "@{/favicon.png}">
+    <style>
+        h2
+        {
+            text-align: center;
+        }
+
+        html
+        {
+            height: 100%;
+        }
+        div
+        {
+            color: grey;
+            text-align: center;
+        }
+
+        body
+        {
+            height: 100%;
+            display: flex;
+            margin: 0;
+            color: white;
+            flex-direction: column;
+            justify-content: center;
+            font-family: sans-serif;
+            background-image: url('../../static/login-bg-img.jpg');
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        form
+        {
+            width: 25%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 3rem 5rem;
+            background: rgba(72,187,237,255);
+            border-radius: 7px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label
+        {
+            font-size: 0.9rem;
+            color: white;
+            display: block;
+            text-align: left;
+        }
+
+        button
+        {
+            width: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            color: white;
+            background-color: #0d76ae;
+            border:1px solid #0d76ae;
+            border-radius: 20px;
+            padding: 5.5px 0;
+            font-size: 0.9rem;
+            transition: background-color 50ms linear;
+        }
+
+        button:hover,button:focus
+        {
+            border:1px solid white;
+            background-color: rgba(72,187,237,255);
+        }
+
+        button:focus
+        {
+            outline:none;
+        }
+
+        input
+        {
+            padding: 5px;
+            border: 0px;
+            color: white;
+            border-bottom: 1px solid white;
+            background-color: rgba(72,187,237,255);
+            width: 96%;
+        }
+
+        input:focus, textarea:focus, select:focus
+        {
+            outline: none;
+            border:none;
+        }
+
+        input:focus::placeholder {
+            color: transparent;
+        }
+
+        ::placeholder
+        {
+            color:rgb(209, 243, 255);
+        }
+
+        div
+        {
+            padding: 4px;
+        }
+
+        div:focus-within label
+        {
+            font-size: 0.7rem;
+            transition: font-size 200ms linear;
+        }
+
+        input:focus
+        {
+            font-size: 0.87rem;
+        }
+
+        div:focus-within
+        {
+            border-radius: 2px;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body th:style="'background: url(/login-bg-img.jpg) center;'">
+<form>
+    <img th:src="@{/logo1.PNG}">
+    <br>
+    <div>
+        <label>
+            Username
+        </label>
+        <input placeholder = "Enter username" type = "text" name = "username">
+    </div>
+    <br>
+    <div>
+        <label>
+            Password
+        </label>
+        <input placeholder = "Enter password" type = "password" name = "password">
+    </div>
+    <br>
+    <br>
+    <button type = "submit">Log In</button>
+    <br>
+    <br>
+</form>
+</body>
+</html>
