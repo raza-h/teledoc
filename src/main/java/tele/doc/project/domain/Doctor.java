@@ -6,10 +6,6 @@ import java.util.Set;
 
 @Entity
 public class Doctor extends Person{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     private String qualification;
     private String Specialization;
 
@@ -32,19 +28,12 @@ public class Doctor extends Person{
         status = false;
     }
 
-    public Doctor(String qualification, String specialization, float rating, boolean status) {
+    public Doctor(String name, String email, String username, String password, String address, String qualification, String specialization, float rating, boolean status) {
+        super(name, email, username, password, address);
         this.qualification = qualification;
         Specialization = specialization;
         this.rating = rating;
         this.status = status;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getQualification() {
@@ -104,24 +93,9 @@ public class Doctor extends Person{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Doctor doctor = (Doctor) o;
-
-        return Objects.equals(id, doctor.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
     public String toString() {
         return "Doctor{" +
-                "id=" + id +
+
                 ", qualification='" + qualification + '\'' +
                 ", Specialization='" + Specialization + '\'' +
                 ", rating=" + rating +

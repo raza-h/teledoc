@@ -9,39 +9,15 @@ import java.util.Objects;
 @Entity
 public class Admin extends Person
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     public Admin(){}
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Admin admin = (Admin) o;
-
-        return Objects.equals(id, admin.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public Admin(String name, String email, String username, String password, String address) {
+        super(name, email, username, password, address);
     }
 
     @Override
     public String toString() {
         return "Admin{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +

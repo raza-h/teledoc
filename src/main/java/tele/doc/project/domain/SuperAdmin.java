@@ -9,26 +9,16 @@ import java.util.Objects;
 
 @Entity
 public class SuperAdmin extends Person{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private String specialization;
     private String experience;
 
     public SuperAdmin() {
     }
 
-    public SuperAdmin(String specialization, String experience) {
+    public SuperAdmin(String name, String email, String username, String password, String address, String specialization, String experience) {
+        super(name, email, username, password, address);
         this.specialization = specialization;
         this.experience = experience;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSpecialization() {
@@ -48,24 +38,8 @@ public class SuperAdmin extends Person{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SuperAdmin that = (SuperAdmin) o;
-
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
     public String toString() {
         return "SuperAdmin{" +
-                "id=" + id +
                 ", specialization='" + specialization + '\'' +
                 ", experience='" + experience + '\'' +
                 ", name='" + name + '\'' +

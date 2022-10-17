@@ -7,9 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 @Entity
 public class Patient extends Person{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private Date DOB;
 
     @OneToMany
@@ -35,16 +32,9 @@ public class Patient extends Person{
     public Patient()
     {}
 
-    public Patient(Date DOB) {
+    public Patient(String name, String email, String username, String password, String address, Date DOB) {
+        super(name, email, username, password, address);
         this.DOB = DOB;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Date getDOB() {
@@ -80,24 +70,8 @@ public class Patient extends Person{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Patient patient = (Patient) o;
-
-        return Objects.equals(id, patient.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
     public String toString() {
         return "Patient{" +
-                "id=" + id +
                 ", DOB=" + DOB +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
