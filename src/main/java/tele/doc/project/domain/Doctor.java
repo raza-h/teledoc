@@ -1,62 +1,136 @@
 package tele.doc.project.domain;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-public class Doctor
-{
-    public String username;
-    public String email;
-    public String password;
-    public String phoneNum;
-    public String address;
+@Entity
+public class Doctor extends Person{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String qualification;
+    private String Specialization;
+
+    @OneToOne
+    @JoinColumn(name = "doctor_id")
+    private Education education;
+
+    private float rating;
+    private boolean status;
+
+    @OneToMany
+    @JoinColumn(name = "doctor_id")
+    private Set<Review> reviews = new HashSet<>();
+
+    @OneToMany
+    @JoinColumn(name = "doctor_id")
+    private Set<Appointment> appointments = new HashSet<>();
 
     public Doctor() {
-
+        status = false;
     }
 
-    public Doctor(String username, String email, String password, String phoneNum, String address) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.phoneNum = phoneNum;
-        this.address = address;
+    public Doctor(String qualification, String specialization, float rating, boolean status) {
+        this.qualification = qualification;
+        Specialization = specialization;
+        this.rating = rating;
+        this.status = status;
     }
 
-    public String getUsername() {
-        return username;
+    public Long getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getQualification() {
+        return qualification;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSpecialization() {
+        return Specialization;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSpecialization(String specialization) {
+        Specialization = specialization;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public Education getEducation() {
+        return education;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setEducation(Education education) {
+        this.education = education;
     }
 
-    public String getAddress() {
-        return address;
+    public float getRating() {
+        return rating;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Doctor doctor = (Doctor) o;
+
+        return Objects.equals(id, doctor.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", qualification='" + qualification + '\'' +
+                ", Specialization='" + Specialization + '\'' +
+                ", rating=" + rating +
+                ", status=" + status +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }
