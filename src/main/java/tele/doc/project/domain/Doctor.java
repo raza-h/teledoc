@@ -9,8 +9,7 @@ public class Doctor extends Person{
     private String qualification;
     private String Specialization;
 
-    @OneToOne
-    @JoinColumn(name = "doctor_id")
+    @Embedded
     private Education education;
 
     private float rating;
