@@ -1,11 +1,22 @@
 package tele.doc.project.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import tele.doc.project.repositories.DoctorRepository;
+
 import java.awt.*;
 
 @Controller
 public class IndexController {
+
+    private final DoctorRepository dr;
+
+    public IndexController(DoctorRepository dr) {
+        this.dr = dr;
+    }
+
     @RequestMapping("/")
     public String index()
     {
@@ -41,6 +52,14 @@ public class IndexController {
     {
         return "patient/register";
     }
+
+    @RequestMapping("/doctor")
+    public String doctorHome(@RequestParam(name="username", required = true, defaultValue = "ab") String username, Model model)
+    {
+        model.addAttribute("doctor", dr.findByUsername(username));
+        return "doctor/home";
+    }
+
 }
 
 
