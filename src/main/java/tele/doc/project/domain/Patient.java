@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 public class Patient extends Person{
     private Date DOB;
-
+    private long age;
     @OneToMany
     @JoinColumn(name = "patient_id")
     private Set<MedicalHistoryRecord> medicalHistoryRecords = new HashSet<>();
@@ -25,6 +25,7 @@ public class Patient extends Person{
     {
         Date date = new Date();
         long AgeInMS = date.getTime() - DOB.getTime();
+        age = AgeInMS;
         return AgeInMS/(86400000L*365);
     }
 
@@ -80,4 +81,46 @@ public class Patient extends Person{
                 ", address='" + address + '\'' +
                 '}';
     }
+
+    public Set<Doctor> searchDoctor(String s)
+    {
+        return new HashSet<>();
+    }
+
+    public boolean payForAppointment(Appointment a)
+    {
+        return true;
+    }
+
+    public void bookAppointment(Doctor d, Date date)
+    {
+
+    }
+
+    public Prescription viewPresciption(Appointment a)
+    {
+        return new Prescription();
+    }
+
+    public void printPrescription(Prescription p)
+    {
+
+    }
+
+    public void renewPrescription(Appointment a)
+    {
+
+    }
+
+    public void uploadAppointment()
+    {
+
+    }
+
+    public void manageAppointments()
+    {
+
+    }
+
+
 }

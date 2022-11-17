@@ -1,6 +1,8 @@
 package tele.doc.project.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -74,5 +76,14 @@ public abstract class Person
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Review> viewReviews(Doctor D) {
+        Set<Review> a = new HashSet<>();
+        return a;
+    }
+
+    public float viewRating(Doctor d) {
+        return d.getRating();
     }
 }

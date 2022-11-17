@@ -4,4 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import tele.doc.project.domain.Admin;
 
 public interface AdminRepository extends CrudRepository <Admin, Long> {
+    Admin findByUsername(String username);
 }

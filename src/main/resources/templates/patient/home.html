@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Tele</title>
+  <title>TeleDoc</title>
+  <link rel = "icon" th:href = "@{/favicon.png}">
+</head>
+<body>
+<div th:each="p : ${patient}">
+  <h1 th:text="${p.getUsername()}"></h1>
+  <h2 th:text="${p.getEmail()}"></h2>
+  <p th:text="${p.getAddress()}"></p>
+</div>
+</body>
+</html>

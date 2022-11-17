@@ -132,7 +132,7 @@
     </style>
 </head>
 <body th:style="'background: url(/login-bg-img.jpg) center;'">
-<form method = "post">
+<form method = "post" th:object="${doctor}">
     <img th:src="@{/logo1.PNG}">
     <br>
     <div>

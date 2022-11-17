@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
 
+import static tele.doc.project.domain.Status.approved;
+
 @Entity
 public class SuperAdmin extends Person{
     private String specialization;
@@ -55,5 +57,15 @@ public class SuperAdmin extends Person{
         public Date startDate;
         public Date endDate;
         public String programme;
+    }
+
+    public boolean removeDoctor(Doctor d)
+    {
+        return false;
+    }
+
+    public Status verifyDoctor(Doctor d)
+    {
+        return approved;
     }
 }

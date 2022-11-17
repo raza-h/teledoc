@@ -13,6 +13,7 @@ import tele.doc.project.repositories.DoctorRepository;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+/*
 @Controller
 public class RegisterController {
 
@@ -46,11 +47,14 @@ public class RegisterController {
         d.setAddress(parsedData[3]);
         d.setPassword(parsedData[4]);
         dr.save(d);
+
         return "redirect:/doctor-login";
     }
+ */
 
-    @PostMapping(value = "/doctor-login", consumes = {"*/*"})
-    public String LogDoc(@RequestBody String data)
+
+    //@PostMapping(value = "/doctor-login", consumes = {"*/*"})
+    /*public String LogDoc(@RequestBody String data)
     {
         String[] parsedData = {"username", "password"};
         String[] keyValuePairs = data.split("&");
@@ -75,3 +79,5 @@ public class RegisterController {
         return "redirect:/doctor-login";
     }
 }
+*/
+

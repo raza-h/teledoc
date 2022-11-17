@@ -22,13 +22,45 @@ public class Appointment {
         this.time = time;
     }
 
-    private String diagnosis;
     private boolean isPaid;
     private float amount;
-    private String prescription;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "prescription_id", referencedColumnName = "id")
+    private Prescription prescription;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id", referencedColumnName = "id")
+    private Payment paymentGateway;
+
+    String link;
+    Status status;
 
     @ManyToOne
     private Patient patient;
+
+    public Payment getPaymentGateway() {
+        return paymentGateway;
+    }
+
+    public void setPaymentGateway(Payment paymentGateway) {
+        this.paymentGateway = paymentGateway;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @ManyToOne
     private Doctor doctor;
@@ -37,13 +69,14 @@ public class Appointment {
         isPaid = false;
     }
 
-    public Appointment(Date date, Time time, String diagnosis, boolean isPaid, float amount, String prescription) {
+    public Appointment(Date date, Time time, boolean isPaid, float amount, String link, Status status) {
         this.date = date;
         this.time = time;
-        this.diagnosis = diagnosis;
-        this.isPaid = isPaid;
+        this.isPaid = false;
         this.amount = amount;
-        this.prescription = prescription;
+        this.link = link;
+        this.status = status;
+        this.prescription = new Prescription();
     }
 
     public Long getId() {
@@ -62,14 +95,6 @@ public class Appointment {
         this.date = date;
     }
 
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
     public boolean isPaid() {
         return isPaid;
     }
@@ -86,11 +111,11 @@ public class Appointment {
         this.amount = amount;
     }
 
-    public String getPrescription() {
+    public Prescription getPrescription() {
         return prescription;
     }
 
-    public void setPrescription(String prescription) {
+    public void setPrescription(Prescription prescription) {
         this.prescription = prescription;
     }
 
@@ -130,7 +155,6 @@ public class Appointment {
         return "Appointment{" +
                 "id=" + id +
                 ", date=" + date +
-                ", diagnosis='" + diagnosis + '\'' +
                 ", isPaid=" + isPaid +
                 ", amount=" + amount +
                 ", prescription='" + prescription + '\'' +

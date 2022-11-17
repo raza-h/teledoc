@@ -7,13 +7,23 @@ import java.util.Set;
 @Entity
 public class Doctor extends Person{
     private String qualification;
+
+    public Set<EducationRecord> getEducation() {
+        return education;
+    }
+
+    public void setEducation(Set<EducationRecord> education) {
+        this.education = education;
+    }
+
     private String Specialization;
 
-    @Embedded
-    private Education education;
+    @OneToMany
+    @JoinColumn(name = "doctor_id")
+    private Set<EducationRecord> education = new HashSet<>();
 
     private float rating;
-    private boolean status;
+    private Status status;
 
     @OneToMany
     @JoinColumn(name = "doctor_id")
@@ -24,10 +34,10 @@ public class Doctor extends Person{
     private Set<Appointment> appointments = new HashSet<>();
 
     public Doctor() {
-        status = false;
+        status = Status.pending;
     }
 
-    public Doctor(String name, String email, String username, String password, String address, String qualification, String specialization, float rating, boolean status) {
+    public Doctor(String name, String email, String username, String password, String address, String qualification, String specialization, float rating, Status status) {
         super(name, email, username, password, address);
         this.qualification = qualification;
         Specialization = specialization;
@@ -51,14 +61,6 @@ public class Doctor extends Person{
         Specialization = specialization;
     }
 
-    public Education getEducation() {
-        return education;
-    }
-
-    public void setEducation(Education education) {
-        this.education = education;
-    }
-
     public float getRating() {
         return rating;
     }
@@ -67,11 +69,11 @@ public class Doctor extends Person{
         this.rating = rating;
     }
 
-    public boolean isStatus() {
+    public Status isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -105,5 +107,35 @@ public class Doctor extends Person{
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public void approveAppointment(Appointment a)
+    {
+
+    }
+
+    public void rejectAppointment(Appointment a)
+    {
+
+    }
+
+    public void viewAppointment(Appointment a)
+    {
+
+    }
+
+    public float calcRating()
+    {
+        return 0;
+    }
+
+    public boolean prescribeMedicine(Appointment a)
+    {
+        return true;
+    }
+
+    public void viewMedicalHistory(Appointment a)
+    {
+
     }
 }
