@@ -5,10 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tele.doc.project.domain.*;
-import tele.doc.project.repositories.AdminRepository;
-import tele.doc.project.repositories.DoctorRepository;
-import tele.doc.project.repositories.PatientRepository;
-import tele.doc.project.repositories.SuperAdminRepository;
+import tele.doc.project.repositories.*;
 
 import java.awt.*;
 
@@ -19,12 +16,14 @@ public class IndexController {
     private final PatientRepository pr;
     private final AdminRepository ar;
     private final SuperAdminRepository sr;
+    private final MedicalHistoryRecordRepository mhrr;
 
-    public IndexController(DoctorRepository dr, PatientRepository pr, AdminRepository ar, SuperAdminRepository sr) {
+    public IndexController(DoctorRepository dr, PatientRepository pr, AdminRepository ar, SuperAdminRepository sr, MedicalHistoryRecordRepository mhrr) {
         this.pr = pr;
         this.ar = ar;
         this.sr = sr;
         this.dr = dr;
+        this.mhrr = mhrr;
     }
 
     @RequestMapping("/")
@@ -107,6 +106,33 @@ public class IndexController {
         model.addAttribute("errorMessage", Visitor.errorMessage);
         return "all/error";
     }
+
+    @RequestMapping("/pendingDoctors")
+    public String pendingDoctors(Model model)
+    {
+        model.addAttribute("doctor", dr.findByStatus(Status.pending));
+        model.addAttribute("selected", new Doctor());
+        model.addAttribute("approved", Status.approved);
+        model.addAttribute("rejected", Status.rejected);
+        return "superadmin/pendingDoctors";
+    }
+
+    @RequestMapping("/verifyPassword-sa")
+    public String verifyPasswordSA(Model model)
+    {
+       model.addAttribute("doctor", new Doctor());
+       return "superadmin/verifyPassword";
+    }
+
+    @RequestMapping("/patient-personal-info")
+    public String personalInfo(Model model)
+    {
+        Patient p = pr.findByUsername(Visitor.currentUser);
+        model.addAttribute("patient", p);
+        model.addAttribute("records", mhrr.findByPatient(p));
+        return "patient/info";
+    }
+
 }
 
 

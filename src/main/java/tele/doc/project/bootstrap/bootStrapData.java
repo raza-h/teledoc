@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import tele.doc.project.domain.*;
 import tele.doc.project.repositories.*;
 
+import javax.print.Doc;
+
 @Component
 public class bootStrapData implements CommandLineRunner {
 

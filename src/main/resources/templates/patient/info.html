@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Information</title>
+    <style>
+        body
+        {
+            font-family: sans-serif;
+        }
+        h2
+        {
+            text-align: center;
+        }
+
+        #bio-data
+        {
+            margin: 0 auto 0 auto;
+            width: 80%;
+            padding-top: 2.5rem;
+        }
+
+        th, td
+        {
+            padding: 0.5rem 2rem 0.5rem 2rem;
+            text-align: center;
+            background-color: rgb(233,233,233,255);
+        }
+
+        th
+        {
+            font-weight:400;
+        }
+
+        table
+        {
+            width: 100%;
+            font-family: sans-serif;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        #first-row
+        {
+            border-bottom: 1px solid black;
+        }
+
+    </style>
+</head>
+<body>
+<h2>Personal Information</h2>
+<div id = "bio-data">
+    <h3 th:text="${patient.getName()}"></h3>
+        <p th:text="${patient.getEmail()}"></p>
+        <p th:text="${patient.getEmail()}"></p>
+        <p th:text="${patient.getAddress()}"></p>
+        <br>
+        <br>
+        <h3>Medical History</h3>
+        <table>
+            <thead>
+            <tr id = "first-row">
+                <th>Diagnosis</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Medication</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="record : ${records}">
+                <td th:text="${record.getName()}"></td>
+                <td th:text="${record.getDateDiagnosed()}"></td>
+                <td th:text="${record.getDuration()}"></td>
+                <td th:text="${record.getMedication()}"></td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+</body>
+</html>

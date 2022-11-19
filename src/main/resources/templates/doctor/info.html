@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Information</title>
+    <style>
+      h1
+      {
+        text-align: center;
+      }
+    </style>
+</head>
+<body>
+  <h1>Personal Information</h1>
+  <div id = "bio-data">
+    <h2 th:text="${doctor.getName()}"></h2>
+    <h3 th:text="${doctor.getEmail()}"></h3>
+  </div>
+</body>
+</html>

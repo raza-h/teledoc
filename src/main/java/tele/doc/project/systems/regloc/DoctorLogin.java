@@ -30,6 +30,12 @@ public class DoctorLogin implements LoginSystem{
                 Visitor.errorMessage = "Account Verification Pending";
                 return false;
             }
+
+            else if (p.isStatus() == Status.rejected || p.isStatus() == Status.removed)
+            {
+                Visitor.errorMessage = "Account is no longer accessible.";
+                return false;
+            }
         }
 
         else
