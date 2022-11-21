@@ -16,6 +16,16 @@ public class Doctor extends Person{
         this.education = education;
     }
 
+    String IBAN;
+
+    public String getIBAN() {
+        return IBAN;
+    }
+
+    public void setIBAN(String IBAN) {
+        this.IBAN = IBAN;
+    }
+
     private String Specialization;
 
     @OneToMany
@@ -35,6 +45,7 @@ public class Doctor extends Person{
 
     public Doctor() {
         status = Status.pending;
+        rating = 0;
     }
 
     public Doctor(String name, String email, String username, String password, String address, String qualification, String specialization, float rating, Status status) {

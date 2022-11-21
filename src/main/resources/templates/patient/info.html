@@ -64,6 +64,7 @@
                 <th>Date</th>
                 <th>Duration</th>
                 <th>Medication</th>
+                <th>File</th>
             </tr>
             </thead>
             <tbody>
@@ -72,6 +73,7 @@
                 <td th:text="${record.getDateDiagnosed()}"></td>
                 <td th:text="${record.getDuration()}"></td>
                 <td th:text="${record.getMedication()}"></td>
+                <td><a th:href = "@{'data:image/png;base64,' + ${record.getFile()}}" download><button>Download</button></a></td>
             </tr>
             </tbody>
         </table>

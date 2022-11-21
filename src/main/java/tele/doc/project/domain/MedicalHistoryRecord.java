@@ -1,6 +1,7 @@
 package tele.doc.project.domain;
 
 import javax.persistence.*;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,6 +16,17 @@ public class MedicalHistoryRecord
     private Date dateDiagnosed;
     private String medication;
     private String duration;
+    @Lob
+    @Column(columnDefinition="LONGBLOB")
+    private byte[] file;
+
+    public String getFile() {
+        return Base64.getEncoder().encodeToString(file);
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
 
     @ManyToOne
     private Patient patient;

@@ -1,13 +1,10 @@
 package tele.doc.project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tele.doc.project.domain.Doctor;
 import tele.doc.project.domain.Status;
-import tele.doc.project.domain.SuperAdmin;
 import tele.doc.project.domain.Visitor;
 import tele.doc.project.repositories.DoctorRepository;
 import tele.doc.project.repositories.SuperAdminRepository;

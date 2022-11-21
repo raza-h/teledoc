@@ -1,10 +1,8 @@
 package tele.doc.project.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Objects;
 
@@ -52,6 +50,28 @@ public class EducationRecord {
     Date endDate;
     String institute;
     String programme;
+    @Lob
+    @Column(columnDefinition="LONGBLOB")
+    byte[] file;
+
+    @ManyToOne
+    private Doctor doctor;
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
+    public String getFile() {
+        return Base64.getEncoder().encodeToString(file);
+    }
 
     public Date getStartDate() {
         return startDate;

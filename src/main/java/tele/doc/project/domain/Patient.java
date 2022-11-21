@@ -1,5 +1,7 @@
 package tele.doc.project.domain;
 
+import tele.doc.project.systems.others.MedicalHistoryUploader;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -112,9 +114,9 @@ public class Patient extends Person{
 
     }
 
-    public void uploadAppointment()
+    public boolean uploadMedicalHistory()
     {
-
+        return true;
     }
 
     public void manageAppointments()

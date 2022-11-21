@@ -66,6 +66,7 @@ public class SuperAdmin extends Person{
 
     public Status verifyDoctor(Doctor d)
     {
+
         return approved;
     }
 }

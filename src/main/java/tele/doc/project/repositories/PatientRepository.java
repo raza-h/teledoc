@@ -5,4 +5,5 @@ import tele.doc.project.domain.Patient;
 
 public interface PatientRepository  extends CrudRepository<Patient, Long> {
     Patient findByUsername(String username);
+    Patient findByEmail(String email);
 }

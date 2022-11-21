@@ -42,7 +42,7 @@
             width: 25%;
             margin-left: auto;
             margin-right: auto;
-            padding: 2rem 5rem;
+            padding: 0 5rem;
             background: rgba(72,187,237,255);
             border-radius: 7px;
             display: flex;
@@ -136,11 +136,13 @@
 <body th:style="'background: url(/login-bg-img.jpg) center;'">
 <form method = "post">
     <img th:src="@{/logo1.PNG}">
-    <b>
-        <h3>
-            Doctor Registration
-        </h3>
-    </b>
+    <br>
+    <div>
+        <label>
+            Name
+        </label>
+        <input placeholder = "Enter name" type = "text" name = "name">
+    </div>
     <br>
     <div>
         <label>
@@ -158,9 +160,9 @@
     <br>
     <div>
         <label>
-            Phone Number
+            Specialization
         </label>
-        <input placeholder = "Enter phone number" type = "text" name = "phone">
+        <input placeholder = "Enter Specialization" type = "text" name = "specialization">
     </div>
     <br>
     <div>
@@ -177,8 +179,22 @@
         <input placeholder = "Choose a password" type = "password" name = "password">
     </div>
     <br>
+    <div>
+        <label>
+            International Bank Account Number
+        </label>
+        <input placeholder = "IBAN" type = "text" name = "IBAN">
+    </div>
     <br>
-    <button type = "submit">Next</button>
+    <div>
+        <label>
+            Qualification
+        </label>
+        <input placeholder = "Enter qualification" type = "text" name = "qualification">
+    </div>
+    <br>
+    <br>
+    <button type="submit">Next</button>
     <br>
     <br>
 </form>

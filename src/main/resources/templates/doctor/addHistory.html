@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Education</title>
+</head>
+<body>
+    <form method="post" th:object="${educationrecord}" enctype="multipart/form-data">
+        <input type="date" name ="date1">
+        <input type="date" name ="date2">
+        <input type="text" name="institute">
+        <input type="text" name="programme">
+        <input type="file" name="filer" multiple="multiple">
+        <select name = "select">
+            <option value="addmore">Add more</option>
+            <option value="finished">Finished</option>
+        </select>
+        <button>Submit</button>
+    </form>
+</body>
+</html>

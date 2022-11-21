@@ -1,9 +1,11 @@
 package tele.doc.project.controllers;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import tele.doc.project.domain.*;
 import tele.doc.project.repositories.*;
 
@@ -17,6 +19,14 @@ public class IndexController {
     private final AdminRepository ar;
     private final SuperAdminRepository sr;
     private final MedicalHistoryRecordRepository mhrr;
+
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(100000);
+        return multipartResolver;
+    }
 
     public IndexController(DoctorRepository dr, PatientRepository pr, AdminRepository ar, SuperAdminRepository sr, MedicalHistoryRecordRepository mhrr) {
         this.pr = pr;
@@ -60,8 +70,9 @@ public class IndexController {
     }
 
     @RequestMapping("/doctor-register")
-    public String doctorRegister()
+    public String doctorRegister(Model model)
     {
+        model.addAttribute("doctor", new Doctor());
         return "doctor/register";
     }
 
@@ -133,6 +144,26 @@ public class IndexController {
         return "patient/info";
     }
 
+    @RequestMapping("/patient-add-history")
+    public String addHistory(Model model)
+    {
+        model.addAttribute("medicalhistoryrecord", new MedicalHistoryRecord());
+        return "patient/uploadHistory";
+    }
+
+    @RequestMapping("/p-search-doctor")
+    public String searchDoctor(Model model)
+    {
+        model.addAttribute("doctors", dr.findAll());
+        return "patient/doctors";
+    }
+
+    @RequestMapping("/addReged")
+    public String Reged(Model model)
+    {
+        model.addAttribute("educationrecord", new EducationRecord());
+        return "doctor/addHistory";
+    }
 }
 
 
