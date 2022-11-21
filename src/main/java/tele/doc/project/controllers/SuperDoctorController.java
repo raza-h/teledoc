@@ -2,6 +2,7 @@ package tele.doc.project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tele.doc.project.domain.Doctor;
 import tele.doc.project.domain.Status;
@@ -9,8 +10,10 @@ import tele.doc.project.domain.Visitor;
 import tele.doc.project.repositories.DoctorRepository;
 import tele.doc.project.repositories.SuperAdminRepository;
 import tele.doc.project.systems.others.AdmitDoctorSystem;
+import tele.doc.project.systems.others.DoctorRemovalSystem;
 
 import javax.print.Doc;
+import java.util.Set;
 
 @Controller
 public class SuperDoctorController {
@@ -19,6 +22,8 @@ public class SuperDoctorController {
     Status status;
     String username;
     @Autowired AdmitDoctorSystem ads;
+    @Autowired
+    DoctorRemovalSystem rds;
 
     SuperDoctorController(SuperAdminRepository dr, DoctorRepository docrep)
     {
@@ -54,5 +59,29 @@ public class SuperDoctorController {
         }
         return "redirect:/pendingDoctors";
     }
+
+    @PostMapping("/approvedDoctors")
+    public String removeDoctor(@ModelAttribute("selected") Doctor d)
+    {
+        rds.setUsername(d.getUsername());
+        if (!rds.checkStatus())
+        {
+            return "redirect:/problem";
+        }
+
+        return "redirect:/verifyPassword-sa-2";
+    }
+
+    @PostMapping("/verifyPassword-sa-2")
+    public String verifyPasswordSA2(@ModelAttribute("doctor") Doctor d)
+    {
+        if (!rds.changeStatus(d.getPassword()))
+        {
+            return "redirect:/problem";
+        }
+
+        return "redirect:/approvedDoctors";
+    }
+
 
 }

@@ -1,6 +1,8 @@
 package tele.doc.project.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,8 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import tele.doc.project.domain.*;
 import tele.doc.project.repositories.*;
+import tele.doc.project.systems.others.SearchSystem;
 
+import javax.print.Doc;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 @Controller
 public class IndexController {
@@ -19,6 +26,9 @@ public class IndexController {
     private final AdminRepository ar;
     private final SuperAdminRepository sr;
     private final MedicalHistoryRecordRepository mhrr;
+
+    @Autowired
+    SearchSystem ss;
 
 
     @Bean(name = "multipartResolver")
@@ -76,9 +86,11 @@ public class IndexController {
         return "doctor/register";
     }
 
+
     @RequestMapping("/patient-register")
-    public String patientRegister()
+    public String patientRegister(Model model)
     {
+        model.addAttribute("patient", new Patient());
         return "patient/register";
     }
 
@@ -152,9 +164,53 @@ public class IndexController {
     }
 
     @RequestMapping("/p-search-doctor")
-    public String searchDoctor(Model model)
+    public String searchDoctor(Model model, @RequestParam(value="select",required=false) String option, @RequestParam(value="specializationList", required = false) String specialization, @RequestParam(value="searchQuery",required = false) String name)
     {
-        model.addAttribute("doctors", dr.findAll());
+        Set<String> arr = dr.findAllBySpecialization();
+        if (option == null)
+        {
+            Iterator<String> it = arr.iterator();
+
+            for(;it.hasNext();)
+            {
+                System.out.println(it.next());
+            }
+
+            model.addAttribute("specializations", arr);
+            model.addAttribute("doctors", dr.findByStatus(Status.approved));
+        }
+
+        else if (option.equals("name"))
+        {
+            Set<Doctor> allDocs = ss.filterDoctorList(name);
+            Iterator<Doctor> it = allDocs.iterator();
+
+            for(;it.hasNext();)
+            {
+                System.out.println(it.next().getName());
+            }
+            model.addAttribute("specializations", arr);
+            model.addAttribute("doctors", allDocs);
+        }
+
+        else if(option.equals("specialization"))
+        {
+            Set<Doctor> allDocs = dr.findByStatus(Status.approved);
+            Iterator<Doctor> it = allDocs.iterator();
+            Set<Doctor> approved = new HashSet<>();
+            while(it.hasNext())
+            {
+                Doctor d = it.next();
+                if(d.getSpecialization().equals(specialization))
+                {
+                    approved.add(d);
+                }
+            }
+
+            model.addAttribute("specializations", arr);
+            model.addAttribute("doctors", approved);
+        }
+
         return "patient/doctors";
     }
 
@@ -164,6 +220,23 @@ public class IndexController {
         model.addAttribute("educationrecord", new EducationRecord());
         return "doctor/addHistory";
     }
+
+    @RequestMapping("/approvedDoctors")
+    public String removeDoctor(Model model)
+    {
+        Set<Doctor> docs = dr.findByStatus(Status.approved);
+        model.addAttribute("doctor", docs);
+        model.addAttribute("selected", new Doctor());
+        return "superadmin/approvedDoctors";
+    }
+
+    @RequestMapping("/verifyPassword-sa-2")
+    public String verifyPasswordSA2(Model model)
+    {
+        model.addAttribute("doctor", new Doctor());
+        return "superadmin/verifyPassword";
+    }
+
 }
 
 

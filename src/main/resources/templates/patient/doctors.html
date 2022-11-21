@@ -1,14 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Doctors</title>
+    <style>
+        th, td
+        {
+            padding: 0.5rem 2rem 0.5rem 2rem;
+            text-align: center;
+            background-color: rgb(233,233,233,255);
+        }
+
+        th
+        {
+            font-weight:400;
+        }
+
+        table
+        {
+            width: 100%;
+            font-family: sans-serif;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        #first-row
+        {
+            border-bottom: 1px solid black;
+        }
+    </style>
 </head>
 <body>
-    <form>
-        <input type ="text" name="searchQuery">
-        <button>Search</button>
-    </form>
-
+<form method="get">
+    <p>Tip: Use Dropdown for By specialization and text field for By name</p>
+    Search <select name="select">
+    <option value="name">By name</option>
+    <option value="specialization">By specialization</option>
+</select>
+    <br>
+    <br>
+    <input type ="text" name="searchQuery">
+    <br>
+    <br>
+    <select name = "specializationList">
+        <option th:each="doc:${specializations}" th:value="${doc}" th:text="${doc}"></option>
+    </select>
+    <br>
+    <br>
+    <button>Search</button>
+</form>
+<br>
+<table>
+    <thead>
+        <tr id = "first-row">
+            <th>Name</th>
+            <th>Specialization</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="doc:${doctors}">
+            <td th:text="${doc.getName()}"></td>
+            <td th:text="${doc.getSpecialization()}"></td>
+        </tr>
+    </tbody>
+</table>
 </body>
 </html>

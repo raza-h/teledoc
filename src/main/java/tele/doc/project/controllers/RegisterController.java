@@ -9,9 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import tele.doc.project.domain.Doctor;
 import tele.doc.project.domain.EducationRecord;
+import tele.doc.project.domain.Patient;
 import tele.doc.project.domain.Person;
 import tele.doc.project.repositories.DoctorRepository;
 import tele.doc.project.systems.regloc.DoctorRegister;
+import tele.doc.project.systems.regloc.PatientRegister;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -23,6 +25,7 @@ import java.text.ParseException;
 public class RegisterController {
     private final DoctorRepository dr;
     @Autowired DoctorRegister dreg;
+    @Autowired PatientRegister preg;
 
     RegisterController(DoctorRepository dr)
     {
@@ -71,6 +74,21 @@ public class RegisterController {
             return "redirect:/problem";
         }
         return "redirect:/";
+    }
+
+    @PostMapping("/patient-register")
+    public String registerPat(@ModelAttribute("patient") Patient p, @RequestParam("Date") String Date) throws ParseException {
+        preg.setName(p.getName());
+        preg.setUsername(p.getUsername());
+        preg.setEmail(p.getEmail());
+        preg.setAddress(p.getAddress());
+        preg.setPassword(p.getPassword());
+        preg.setDate(Date);
+        if(!preg.register())
+        {
+            return "redirect:/problem";
+        }
+        return "redirect:/patient-login";
     }
 
     /*
