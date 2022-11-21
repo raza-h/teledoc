@@ -1,22 +1,79 @@
 package tele.doc.project.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import tele.doc.project.domain.Doctor;
+import tele.doc.project.domain.EducationRecord;
 import tele.doc.project.domain.Person;
 import tele.doc.project.repositories.DoctorRepository;
+import tele.doc.project.systems.regloc.DoctorRegister;
 
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
 
-/*
+
 @Controller
 public class RegisterController {
+    private final DoctorRepository dr;
+    @Autowired DoctorRegister dreg;
 
+    RegisterController(DoctorRepository dr)
+    {
+        this.dr = dr;
+    }
+
+    @PostMapping("/doctor-register")
+    public String registerDoc(@ModelAttribute("doctor") Doctor d)
+    {
+        dreg.setName(d.getName());
+        dreg.setUsername(d.getUsername());
+        dreg.setEmail(d.getEmail());
+        dreg.setSpecialization(d.getSpecialization());
+        dreg.setAddress(d.getAddress());
+        dreg.setPassword(d.getPassword());
+        dreg.setQualification(d.getQualification());
+        dreg.setIBAN(d.getIBAN());
+        if(!dreg.register())
+        {
+            return "redirect:/problem";
+        }
+        return "redirect:/addReged";
+    }
+
+    @PostMapping("/addReged")
+    public String reged(@ModelAttribute("educationrecord") EducationRecord ed, @RequestParam("date1") String startDate, @RequestParam("date2") String endDate, @RequestParam("select") String select, @RequestParam("filer")MultipartFile file) throws ParseException, IOException {
+        System.out.println(ed.getInstitute());
+        System.out.println(ed.getProgramme());
+        System.out.println(startDate);
+        System.out.println(endDate);
+        System.out.println(file.getName());
+        System.out.println(select);
+        System.out.println(dreg.getUsername());
+        if (select.equals("addmore"))
+        {
+            if (!dreg.formAttr(startDate,endDate,file,ed.getInstitute(), ed.getProgramme(), select))
+            {
+                return "redirect:/problem";
+            }
+
+            return "redirect:/addReged";
+        }
+
+        if (!dreg.formAttr(startDate,endDate,file,ed.getInstitute(),ed.getProgramme(), select))
+        {
+            return "redirect:/problem";
+        }
+        return "redirect:/";
+    }
+
+    /*
     private final DoctorRepository dr;
 
     RegisterController(DoctorRepository dr)
@@ -78,6 +135,6 @@ public class RegisterController {
 
         return "redirect:/doctor-login";
     }
-}
-*/
 
+     */
+}
