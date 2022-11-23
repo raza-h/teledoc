@@ -5,15 +5,140 @@
   <title>Tele</title>
   <title>TeleDoc</title>
   <link rel = "icon" th:href = "@{/favicon.png}">
+  <style>
+    html, body{
+      height: 100%;
+    }
+    body
+    {
+      font-family: sans-serif;
+      padding: 0;
+      margin: 0;
+      background: linear-gradient(to right, rgba(231,231,231,255), rgba(241,241,241,241));
+    }
+
+    img
+    {
+      padding-top: 0.1rem;
+      width: 2rem;
+    }
+
+    .grid
+    {
+      display: grid;
+      grid-template-columns: auto auto;
+      padding-top: 7rem;
+      justify-content: space-evenly;
+      gap: 12rem 0;
+    }
+
+    .widget
+    {
+      color: white;
+      padding: 0 0.8rem;
+      border-radius: 0.2rem;
+      width: 15rem;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      background-color: rgb(0, 153, 248);
+      cursor: pointer;
+      height: 5rem;
+    }
+
+    .widget:hover
+    {
+      background-color: rgba(255, 92, 67);
+      transition: background-color 55ms linear;
+    }
+
+    h2
+    {
+      font-weight: lighter;
+    }
+
+    .nav
+    {
+      display: grid;
+      padding: 0.3rem 0.4rem;
+      background-color: rgba(0, 163, 240, 0.732);
+      grid-template-columns: auto auto auto;
+    }
+
+    .links
+    {
+      color: white;
+      padding-top: 0.5rem;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .username
+    {
+      justify-self: flex-end;
+      padding: 0.1rem 0.2rem 0rem 0.2rem;
+    }
+
+    #log-out
+    {
+      padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+      border-radius: 0.19rem;
+      border: none;
+      color: white;
+      background-color: rgb(255, 101, 78);
+      cursor: pointer;
+    }
+
+    #log-out:hover{
+      background-color: rgb(255, 75, 47);
+    }
+
+    .link
+    {
+      text-align: center;
+      width: 25%;
+      cursor: pointer;
+    }
+
+    .link::after
+    {
+      content:'';
+      display: block;
+      background-color: transparent;
+      height: 2px;
+      width: 0;
+      margin-top: 2px;
+      transition: background-color 500ms ease, width 500ms ease;
+    }
+
+    .link:hover::after
+    {
+      width: 100%;
+      background-color: white;
+    }
+
+    .flex
+    {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 94.2%;
+    }
+
+    a
+    {
+      text-decoration: none;
+    }
+
+  </style>
 </head>
 <body>
 <div th:each="p : ${patient}">
-  <h1 th:text="${p.getUsername()}"></h1>
-  <h2 th:text="${p.getEmail()}"></h2>
-  <p th:text="${p.getAddress()}"></p>
-  <a href = "/patient-personal-info">Personal Info</a>
-  <a href="/patient-add-history">Add History</a>
-  <a href="/p-search-doctor">Doctors</a>
+  <div class = "flex">
+    <div class="grid">
+      <a class = "widget" href = "/patient-personal-info"><h2>Personal Info</h2></a>
+    <a class = "widget" href="/patient-add-history"><h2>Add History</h2></a>
+    <a class = "widget" href="/p-search-doctor"><h2>Doctors</h2></a>
+    </div>
+  </div>
 </div>
 </body>
 </html>

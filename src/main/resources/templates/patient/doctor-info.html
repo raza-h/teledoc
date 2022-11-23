@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Information</title>
+    <style>
+        .btn
+        {
+            background-color: seagreen;
+            color: white;
+            padding: 0.5rem 0.4rem;
+            transition: background-color 50ms ease;
+            border-radius: 2px;
+            border: none;
+            cursor: pointer;
+        }
+
+
+        .btn:hover
+        {
+            background-color: mediumseagreen;
+        }
+
+        .stripes
+        {
+            padding: 1rem;
+        }
+
+
+        .stripes:nth-child(odd)
+        {
+            background-color: #ded2d2;
+        }
+
+        body
+        {
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        th, td
+        {
+            padding: 0.5rem 2rem 0.5rem 2rem;
+            text-align: center;
+            background-color: rgb(233,233,233,255);
+        }
+
+        th
+        {
+            font-weight:400;
+        }
+
+        table
+        {
+            width: 100%;
+            font-family: sans-serif;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        #first-row
+        {
+            border-bottom: 1px solid black;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="stripes">
+        <h3>Name</h3>
+        <p th:text="${doctor.getName()}"></p>
+    </div>
+    <div class="stripes">
+        <h3>Specialization</h3>
+        <p th:text="${doctor.getSpecialization()}"></p>
+    </div>
+    <div class="stripes">
+        <h3>Personal Contact</h3>
+        <p th:text="${doctor.getEmail()}"></p>
+    </div>
+    <div class="stripes">
+        <h3>Rating</h3>
+        <p th:text="${'✬ ' + doctor.getRating()}"></p>
+    </div>
+    <div class="stripes">
+        <h3>Qualification</h3>
+        <p th:text="${doctor.getQualification()}"></p>
+        <br>
+        <form method="post">
+            <select class = "btn" name="doctor-func">
+                <option class="btn" value="appt">Book Appointment</option>
+                <option class="btn" value="rate">Rate</option>
+            </select>
+            <button class="btn">Select Function</button>
+        </form>
+    </div>
+    <div class="stripes">
+        <h3>Appointments</h3>
+        <table>
+            <thead>
+                <tr>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="ap : ${appointments}">
+                    <td th:text="${ap.getDate() + ' - ' + ap.getTime()}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

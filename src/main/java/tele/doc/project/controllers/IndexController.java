@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -26,6 +27,7 @@ public class IndexController {
     private final AdminRepository ar;
     private final SuperAdminRepository sr;
     private final MedicalHistoryRecordRepository mhrr;
+    private final AppointmentRepository apr;
 
     @Autowired
     SearchSystem ss;
@@ -38,12 +40,13 @@ public class IndexController {
         return multipartResolver;
     }
 
-    public IndexController(DoctorRepository dr, PatientRepository pr, AdminRepository ar, SuperAdminRepository sr, MedicalHistoryRecordRepository mhrr) {
+    public IndexController(DoctorRepository dr, PatientRepository pr, AdminRepository ar, SuperAdminRepository sr, MedicalHistoryRecordRepository mhrr, AppointmentRepository apr) {
         this.pr = pr;
         this.ar = ar;
         this.sr = sr;
         this.dr = dr;
         this.mhrr = mhrr;
+        this.apr = apr;
     }
 
     @RequestMapping("/")
@@ -143,8 +146,8 @@ public class IndexController {
     @RequestMapping("/verifyPassword-sa")
     public String verifyPasswordSA(Model model)
     {
-       model.addAttribute("doctor", new Doctor());
-       return "superadmin/verifyPassword";
+        model.addAttribute("doctor", new Doctor());
+        return "superadmin/verifyPassword";
     }
 
     @RequestMapping("/patient-personal-info")
@@ -237,6 +240,32 @@ public class IndexController {
         return "superadmin/verifyPassword";
     }
 
+    @RequestMapping("/doctor-list-p/{username}")
+    public String viewDoctor(@PathVariable("username") String username, Model model)
+    {
+        System.out.println(username);
+        Set<Appointment> a = apr.findByDoctor(dr.findByUsername(username));
+        Set<Appointment> filtered = new HashSet<>();
+        Iterator<Appointment> fit = a.iterator();
+        while(fit.hasNext())
+        {
+            Appointment ap = fit.next();
+            if (ap.getStatus()== Status.approved || ap.getStatus()==Status.pending)
+            {
+                filtered.add(ap);
+            }
+        }
+
+        model.addAttribute("appointments", filtered);
+        model.addAttribute("doctor", dr.findByUsername(username));
+        return "patient/doctor-info";
+    }
+
+    @RequestMapping("/bookAppointment")
+    public String bookingAppointment(Model model)
+    {
+        model.addAttribute("appt", new Appointment());
+        return "patient/bookAppointment";
+    }
+
 }
-
-

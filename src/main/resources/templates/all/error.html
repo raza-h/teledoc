@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <title>A little issue</title>
     <style>
-        h1
+        html, body
+        {
+            height: 96%;
+            background-color: rgb(253, 249, 254);
+        }
+
+        body
+        {
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        p
         {
             text-align: center;
+            font-family: sans-serif;
         }
 
     </style>
 </head>
 <body>
-    <div>
-        <h1 th:text="${errorMessage}"></h1>
-    </div>
+<div>
+    <h1></h1>
+    <p th:text="${errorMessage}"></p>
+</div>
 </body>
 </html>
