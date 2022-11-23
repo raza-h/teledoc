@@ -1,6 +1,7 @@
 package tele.doc.project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import tele.doc.project.repositories.DoctorRepository;
 import tele.doc.project.repositories.MedicalHistoryRecordRepository;
 import tele.doc.project.repositories.PatientRepository;
 import tele.doc.project.systems.others.BookAppointmentSystem;
+import tele.doc.project.systems.others.CancelAppointmentSystem;
 import tele.doc.project.systems.others.MedicalHistoryUploader;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,6 +22,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 
 @Controller
@@ -32,6 +35,7 @@ public class PatientController {
     private JavaMailSender javaMailSender;
     BookAppointmentSystem bas;
     MedicalHistoryUploader mhu;
+    CancelAppointmentSystem cas;
 
     PatientController(PatientRepository pr, MedicalHistoryRecordRepository mhrr, DoctorRepository dr, AppointmentRepository ar)
     {
@@ -95,6 +99,24 @@ public class PatientController {
         a.setStatus(Status.pending);
         ar.save(a);
         return "redirect:/doctor-list-p/" + bas.getUsername();
+    }
+
+    @PostMapping("/patient-appointments")
+    public String cancelAppointment(@ModelAttribute("appoint") Appointment a) throws ChangeSetPersister.NotFoundException {
+        System.out.println(a.getId());
+        Optional<Appointment> ap = ar.findById(a.getId());
+        Appointment app = ap.orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        Appointment appo = ap.get();
+        System.out.println(appo.getDate());
+        cas = new CancelAppointmentSystem(ar);
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom("razah12145@gmail.com");
+        mailMessage.setTo(appo.getDoctor().getEmail());
+        mailMessage.setSubject("Appointment canceled");
+        mailMessage.setText("Your appointment with " + appo.getPatient().getName() + " at " + appo.getDate() + " - " + appo.getTime() + " has been canceled.");
+        javaMailSender.send(mailMessage);
+        cas.cancelAppointment(appo);
+        return "redirect:/patient-appointments";
     }
 
 

@@ -268,4 +268,24 @@ public class IndexController {
         return "patient/bookAppointment";
     }
 
+    @RequestMapping("/patient-appointments")
+    public String manageAppointments(Model model)
+    {
+        Set<Appointment> a = apr.findByPatient(pr.findByUsername(Visitor.currentUser));
+        Set<Appointment> ap = new HashSet<>();
+        Iterator<Appointment> it = a.iterator();
+        while(it.hasNext())
+        {
+            Appointment app = it.next();
+            if (app.getStatus() != Status.rejected)
+            {
+                ap.add(app);
+            }
+        }
+
+        model.addAttribute("appointments", ap);
+        model.addAttribute("appoint", new Appointment());
+        return "patient/appointments";
+    }
+
 }
