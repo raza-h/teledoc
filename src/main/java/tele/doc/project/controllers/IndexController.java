@@ -15,9 +15,7 @@ import tele.doc.project.systems.others.SearchSystem;
 
 import javax.print.Doc;
 import java.awt.*;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class IndexController {
@@ -52,6 +50,7 @@ public class IndexController {
     @RequestMapping("/")
     public String index()
     {
+        Date date = new Date();
         return "all/home";
     }
 
@@ -286,6 +285,52 @@ public class IndexController {
         model.addAttribute("appointments", ap);
         model.addAttribute("appoint", new Appointment());
         return "patient/appointments";
+    }
+
+    @RequestMapping("/doctorAppointments")
+    public String doctorAppointments(Model model)
+    {
+        Doctor d = dr.findByUsername(Visitor.currentUser);
+        model.addAttribute("appointments", apr.findByDoctorAndStatus(d,Status.pending));
+        model.addAttribute("selected", new Appointment());
+        model.addAttribute("approved", Status.approved);
+        model.addAttribute("rejected", Status.rejected);
+        return "doctor/doctorAppointments";
+    }
+    @RequestMapping("/appointmentDetails")
+    public String AppDetails(Model model)
+    {
+        Doctor d = dr.findByUsername(Visitor.currentUser);
+        model.addAttribute("appointments", apr.findByDoctorAndStatus(d,Status.pending));
+        return "doctor/AppointmentDetails";
+    }
+
+    @RequestMapping("/addPrescription")
+    public String addPrescription(Model model)
+    {
+        Doctor d = dr.findByUsername(Visitor.currentUser);
+        Set<Appointment> Appointments= apr.findByDoctorAndStatus(d,Status.approved);
+        //  if(Appointments.size()!=0) {
+        Set<Appointment> Appointments1 = new LinkedHashSet<Appointment>();
+        Iterator<Appointment> it = Appointments.iterator();
+        Iterator<Appointment> it1 = Appointments.iterator();
+        Date date = new Date();
+        while (it.hasNext()) {
+            Appointment a = it.next();
+            if (a.getDate().getTime() + 1800000 < date.getTime() && a.isPaid()) {
+                Appointments1.add(it1.next());
+            }
+        }
+        model.addAttribute("Appointments1", Appointments1);
+        model.addAttribute("selected", new Appointment());
+        return "doctor/prescriptionsList";
+    }
+    @RequestMapping("/prescriptionDetails")
+    public String PrescriptionDetails(Model model)
+    {
+
+        //model.addAttribute("prescription", new Prescription());
+        return "doctor/PrescriptionDetails";
     }
 
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="_csrf" content="${_csrf.token}"/>
+  <meta name="_csrf_header" content="${_csrf.headerName}"/>
+  <title>Prescriptions List</title>
+  <link rel = "icon" th:href = "@{/favicon.png}">
+  <style>
+    .finalize
+    {
+      padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+      border-radius: 0.19rem;
+      border: none;
+      color: white;
+      background-color: rgb(78, 181, 255);
+      cursor: pointer;
+      transition: background-color 50ms ease;
+    }
+
+    th, td
+    {
+      padding: 10px;
+      text-align: center;
+      background-color: rgb(233,233,233,255);
+    }
+
+    th
+    {
+      font-weight:400;
+    }
+
+    table
+    {
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: sans-serif;
+      border-collapse: collapse;
+    }
+
+    #first-row
+    {
+      border-bottom: 1px solid black;
+    }
+
+    select
+    {
+      padding: 0.1rem;
+    }
+
+    .a
+    {
+      background-color: green;
+      color: white;
+    }
+
+    .r
+    {
+      background-color: red;
+      color: white;
+    }
+
+    .finalize:hover{
+      background-color: rgb(10, 113, 216);
+    }
+  </style>
+</head>
+<body>
+
+<table>
+  <thead>
+  <tr id = "first-row">
+    <!--    <th>ID</th>-->
+    <th>Date</th>
+    <th>Patient</th>
+    <th>Paid Amount</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="app : ${Appointments1}">
+    <td th:text="${app.getDate()}"></td>
+    <td th:text="${app.getPatient().getUsername()}"></td>
+    <td th:text="${app.getAmount()}"></td>
+    <td>
+      <button type = "submit" class = "add">Add</button>
+
+      <form th:method="post" th:object="${selected}">
+        <input th:name = "id" type="hidden" th:value = "${app.getId()}"/>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

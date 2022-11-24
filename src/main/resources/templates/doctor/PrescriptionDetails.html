@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Prescription Details</title>
+  <style>
+    html, body
+    {
+      height:96%;
+    }
+    body{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: sans-serif;
+    }
+    form
+    {
+      background-color: rgb(233,233,233,255);
+      width: 30%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 2rem;
+      border-radius: 0.5rem;
+    }
+
+    input
+    {
+      margin-top: 2px;
+      padding: 0.2rem 0.1rem 0.2rem 0.1rem;
+      border-radius: 3px;
+      border: 3px solid white;
+      width: 98%;
+    }
+
+    button
+    {
+      width: 96%;
+      padding: 0.2rem 0rem 0.2rem 0rem;
+      border-radius: 10px;
+      border: 1px solid #0d76ae;
+      background-color: #0d76ae;
+      color:white;
+      transition: background-color 100ms ease;
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    button:hover
+    {
+      background-color: dodgerblue;
+      border: 1px solid dodgerblue;
+      color:white;
+    }
+
+    h2
+    {
+      margin:0;
+      font-weight: lighter;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+  </style>
+</head>
+<body>
+<form th:method="post" th:object="${prescription}">
+  <h2>Add Prescription</h2>
+  <br>
+  <br>
+  <label for = "medication">Medication</label>
+  <br>
+  <input name = "medication" type="text">
+  <br>
+  <br>
+  <br>
+  <label for ="diagnosis">Diagnosis</label>
+  <br>
+  <input name = "diagnosis" type="text">
+  <br>
+  <br>
+  <br>
+  <button>Submit</button>
+</form>
+</body>
+</html>

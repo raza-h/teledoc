@@ -4,6 +4,8 @@ import tele.doc.project.domain.Patient;
 import tele.doc.project.domain.Visitor;
 import tele.doc.project.repositories.PatientRepository;
 
+import java.util.Objects;
+
 public class PatientLogin implements LoginSystem{
 
     private final PatientRepository pr;
@@ -21,7 +23,7 @@ public class PatientLogin implements LoginSystem{
     public boolean verifyUser(String username, String password)
     {
         Patient p = pr.findByUsername(username);
-        System.out.println(p.getUsername());
+        System.out.println(p);
         if (p == null || !password.equals(p.getPassword()))
         {
             Visitor.errorMessage = "Wrong username or password";
