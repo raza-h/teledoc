@@ -75,20 +75,20 @@
     <th>Date</th>
     <th>Patient</th>
     <th>Paid Amount</th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="app : ${Appointments1}">
+    <form th:method="post" th:object="${selected}">
     <td th:text="${app.getDate()}"></td>
     <td th:text="${app.getPatient().getUsername()}"></td>
     <td th:text="${app.getAmount()}"></td>
     <td>
-      <button type = "submit" class = "add">Add</button>
-
-      <form th:method="post" th:object="${selected}">
-        <input th:name = "id" type="hidden" th:value = "${app.getId()}"/>
-      </form>
+      <button type = "submit" class = "finalize">Add</button>
+      <input th:name = "id" type="hidden" th:value = "${app.getId()}"/>
     </td>
+    </form>
   </tr>
   </tbody>
 </table>

@@ -317,6 +317,9 @@ public class IndexController {
         Date date = new Date();
         while (it.hasNext()) {
             Appointment a = it.next();
+            System.out.println(a.getDate().getTime());
+            System.out.println(date.getTime());
+            System.out.println(a.isPaid());
             if (a.getDate().getTime() + 1800000 < date.getTime() && a.isPaid()) {
                 Appointments1.add(it1.next());
             }
@@ -332,5 +335,6 @@ public class IndexController {
         //model.addAttribute("prescription", new Prescription());
         return "doctor/PrescriptionDetails";
     }
+
 
 }

@@ -107,15 +107,19 @@ public class PatientController {
         Optional<Appointment> ap = ar.findById(a.getId());
         Appointment app = ap.orElseThrow(() -> new ChangeSetPersister.NotFoundException());
         Appointment appo = ap.get();
-        System.out.println(appo.getDate());
-        cas = new CancelAppointmentSystem(ar);
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("razah12145@gmail.com");
-        mailMessage.setTo(appo.getDoctor().getEmail());
-        mailMessage.setSubject("Appointment canceled");
-        mailMessage.setText("Your appointment with " + appo.getPatient().getName() + " at " + appo.getDate() + " - " + appo.getTime() + " has been canceled.");
-        javaMailSender.send(mailMessage);
-        cas.cancelAppointment(appo);
+        if (appo.getStatus() != Status.removed)
+        {
+            System.out.println(appo.getDate());
+            cas = new CancelAppointmentSystem(ar);
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setFrom("razah12145@gmail.com");
+            mailMessage.setTo(appo.getDoctor().getEmail());
+            mailMessage.setSubject("Appointment canceled");
+            mailMessage.setText("Your appointment with " + appo.getPatient().getName() + " at " + appo.getDate() + " - " + appo.getTime() + " has been canceled.");
+            javaMailSender.send(mailMessage);
+            cas.cancelAppointment(appo);
+        }
+
         return "redirect:/patient-appointments";
     }
 
