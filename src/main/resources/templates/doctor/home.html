@@ -1,16 +1,321 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tele</title>
-  <title>TeleDoc</title>
-  <link rel = "icon" th:href = "@{/favicon.png}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+
+        html, body{
+            height: 100%;
+        }
+        body
+        {
+            font-family: sans-serif;
+            padding: 0;
+            margin: 0;
+            background: linear-gradient(to right, rgba(231,231,231,255), rgba(241,241,241,241));
+        }
+
+        img
+        {
+            padding-top: 0.1rem;
+            width: 2rem;
+        }
+
+        .grid
+        {
+            display: grid;
+            grid-template-columns: auto auto;
+            padding-top: 7rem;
+            justify-content: space-evenly;
+            gap: 12rem 0;
+        }
+
+        .widget
+        {
+            color: white;
+            padding: 0 0.8rem;
+            border-radius: 0.2rem;
+            width: 15rem;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            background-color: rgb(0, 153, 248);
+            cursor: pointer;
+            height: 5rem;
+        }
+
+        .widget:hover
+        {
+            background-color: rgba(255, 92, 67);
+            transition: background-color 55ms linear;
+        }
+
+        h2
+        {
+            font-weight: lighter;
+        }
+
+        .nav
+        {
+            display: grid;
+            padding: 0.3rem 0.4rem;
+            background-color: rgba(0, 163, 240, 0.732);
+            grid-template-columns: auto auto auto;
+        }
+
+        .links
+        {
+            color: white;
+            padding-top: 0.5rem;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .username
+        {
+            justify-self: flex-end;
+            padding: 0.1rem 0.2rem 0rem 0.2rem;
+        }
+
+        #log-out
+        {
+            padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+            border-radius: 0.19rem;
+            border: none;
+            color: white;
+            background-color: rgb(255, 101, 78);
+            cursor: pointer;
+        }
+
+        #log-out:hover{
+            background-color: rgb(255, 75, 47);
+        }
+
+        .link
+        {
+            text-align: center;
+            width: 25%;
+            cursor: pointer;
+        }
+
+        .link::after
+        {
+            content:'';
+            display: block;
+            background-color: transparent;
+            height: 2px;
+            width: 0;
+            margin-top: 2px;
+            transition: background-color 500ms ease, width 500ms ease;
+        }
+
+        .link:hover::after
+        {
+            width: 100%;
+            background-color: white;
+        }
+
+        .flex
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 94.2%;
+        }
+
+        a
+        {
+            text-decoration: none;
+        }
+
+
+    </style>
 </head>
 <body>
-    <div th:each="doc : ${doctor}">
-        <h1 th:text="${doc.getUsername()}"></h1>
-        <h2 th:text="${doc.getEmail()}"></h2>
-        <p th:text="${doc.getAddress()}"></p>
+<div class = "nav">
+    <img src = "favicon.PNG">
+    <div class = "links">
+        <a class="link">Home</a>
     </div>
+    <div class = "username">
+        <button id = "log-out">Log Out</button>
+    </div>
+</div>
+<div class = "flex">
+    <div class = "grid">
+        <a id = "w-1" class="widget">
+            <h2>View Patient Details</h2>
+        </a>
+        <a href="/doctorAppointments"  id= "w-3" class ="widget" a>
+            <h2> Manage Appointments </h2>
+            <a href="/addPrescription"  id= "w-4" class ="widget" a>
+                <h2> Prescribe Medicine </h2>
+            </a>
+            <a id = "w-5" class="widget">
+                <h2>Personal Information</h2>
+            </a>
+    </div>
+</div>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+
+        html, body{
+            height: 100%;
+        }
+        body
+        {
+            font-family: sans-serif;
+            padding: 0;
+            margin: 0;
+            background: linear-gradient(to right, rgba(231,231,231,255), rgba(241,241,241,241));
+        }
+
+        img
+        {
+            padding-top: 0.1rem;
+            width: 2rem;
+        }
+
+        .grid
+        {
+            display: grid;
+            grid-template-columns: auto auto;
+            padding-top: 7rem;
+            justify-content: space-evenly;
+            gap: 12rem 0;
+        }
+
+        .widget
+        {
+            color: white;
+            padding: 0 0.8rem;
+            border-radius: 0.2rem;
+            width: 15rem;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            background-color: rgb(0, 153, 248);
+            cursor: pointer;
+            height: 5rem;
+        }
+
+        .widget:hover
+        {
+            background-color: rgba(255, 92, 67);
+            transition: background-color 55ms linear;
+        }
+
+        h2
+        {
+            font-weight: lighter;
+        }
+
+        .nav
+        {
+            display: grid;
+            padding: 0.3rem 0.4rem;
+            background-color: rgba(0, 163, 240, 0.732);
+            grid-template-columns: auto auto auto;
+        }
+
+        .links
+        {
+            color: white;
+            padding-top: 0.5rem;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .username
+        {
+            justify-self: flex-end;
+            padding: 0.1rem 0.2rem 0rem 0.2rem;
+        }
+
+        #log-out
+        {
+            padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+            border-radius: 0.19rem;
+            border: none;
+            color: white;
+            background-color: rgb(255, 101, 78);
+            cursor: pointer;
+        }
+
+        #log-out:hover{
+            background-color: rgb(255, 75, 47);
+        }
+
+        .link
+        {
+            text-align: center;
+            width: 25%;
+            cursor: pointer;
+        }
+
+        .link::after
+        {
+            content:'';
+            display: block;
+            background-color: transparent;
+            height: 2px;
+            width: 0;
+            margin-top: 2px;
+            transition: background-color 500ms ease, width 500ms ease;
+        }
+
+        .link:hover::after
+        {
+            width: 100%;
+            background-color: white;
+        }
+
+        .flex
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 94.2%;
+        }
+
+        a
+        {
+            text-decoration: none;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class = "nav">
+    <img src = "favicon.PNG">
+    <div class = "links">
+        <a class="link">Home</a>
+    </div>
+    <div class = "username">
+        <button id = "log-out">Log Out</button>
+    </div>
+</div>
+<div class = "flex">
+    <div class = "grid">
+        <a id = "w-1" class="widget">
+            <h2>View Patient Details</h2>
+        </a>
+        <a href="/doctorAppointments"  id= "w-3" class ="widget" a>
+            <h2> Manage Appointments </h2>
+            <a href="/addPrescription"  id= "w-4" class ="widget" a>
+                <h2> Prescribe Medicine </h2>
+            </a>
+            <a id = "w-5" class="widget">
+                <h2>Personal Information</h2>
+            </a>
+    </div>
+</div>
 </body>
 </html>

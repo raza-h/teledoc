@@ -336,5 +336,12 @@ public class IndexController {
         return "doctor/PrescriptionDetails";
     }
 
+    @RequestMapping("/p-appointment/{id}")
+    public String apptDetails(@PathVariable("id") Long id, Model model)
+    {
+        Optional<Appointment> ap = apr.findById(id);
+        model.addAttribute("appointment", ap.get());
+        return "patient/appointment";
+    }
 
 }

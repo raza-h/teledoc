@@ -115,7 +115,7 @@
             </thead>
             <tbody>
                 <tr th:each="ap:${appointments}">
-                    <td th:text="${ap.getDate() + ' - ' + ap.getTime()}"></td>
+                    <td><a th:text="${ap.getDate() + ' - ' + ap.getTime()}" th:href="${'/p-appointment/' + ap.getId()}"></a></td>
                     <td th:text="${ap.getDoctor().getName()}"></td>
                     <td>
                         <form method = "post" th:object="${appoint}">
