@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Renew Appointments</title>
+      <link rel = "icon" th:href = "@{/favicon.png}">
+      <style>
+          body{
+          margin:0;
+      }
+      th, td
+      {
+          padding: 0.5rem 1rem 0.5rem 1rem;
+          text-align: center;
+          background-color: rgb(233,233,233,255);
+      }
+      th
+      {
+          font-weight:400;
+      }
+
+      p{
+          margin:0;
+          padding: 1rem;
+          color: grey;
+      }
+
+      table
+      {
+          width: 70%;
+          font-family: sans-serif;
+          border-collapse: collapse;
+          margin-top: 2rem;
+          margin-left: auto;
+          margin-right:auto;
+      }
+
+      #first-row
+      {
+          border-bottom: 1px solid black;
+      }
+
+      a
+      {
+          color: black;
+      }
+
+      #search-section
+      {
+          width: 100%;
+          background-color: rgb(230, 225, 224);
+      }
+
+      #search
+      {
+          margin-left: auto;
+          margin-right: auto;
+          width: fit-content;
+          font-family: sans-serif;
+          font-size: 0.9rem;
+          padding: 1rem 0;
+      }
+
+      #select
+      {
+          width: 87.2%;
+          padding: 0.2rem 0.1rem 0.2rem 0.1rem;
+      }
+
+      #name
+      {
+          width: 97.4%;
+          padding: 0.2rem 0.1rem 0.2rem 0.1rem;
+      }
+
+      #spec
+      {
+          width: 99%;
+          padding: 0.2rem 0.1rem 0.2rem 0.1rem;
+      }
+
+      button{
+          padding: 0.2rem 0.4rem;
+          margin: 0 auto;
+          display: block;
+          border-radius: 2.5px;
+          border: none;
+          background-color: lightslategray;
+          border: 1px solid lightslategray;
+          color:white;
+          cursor: pointer;
+      }
+
+      button:hover{
+          border: 1px solid white;
+          background-color: rgb(183, 176, 176);
+      }
+
+      select, input
+      {
+          border-radius: 3px;
+          border: 2px solid white;
+      }
+      </style>
+</head>
+<body>
+<form method = "post">
+  <table>
+    <thead>
+    <tr id="first-row">
+      <th>Date and Time</th>
+      <th>Doctor</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ap:${appointments}">
+      <td th:text="${ap.getDate() + ' - ' + ap.getTime()}"></td>
+      <td th:text="${ap.getDoctor().getName()}"></td>
+      <td>
+        <form method = "post" th:object="${appoint}">
+          <input name="id" type = "hidden" th:value="${ap.getId()}">
+          <button>Renew </button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
+</body>
+</html>

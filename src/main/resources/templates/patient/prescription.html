@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Prescription</title>
+    <link rel = "icon" th:href = "@{/favicon.png}">
+</head>
+<body>
+  <p th:text="${(prescription.getAppointment().getDate().getYear() + 1900) + ' - ' + prescription.getAppointment().getDate().getMonth() + ' - ' + prescription.getAppointment().getDate().getDate()}"></p>
+  <p th:text="${prescription.getDiagnosis()}"></p>
+  <p th:text="${prescription.getMedicine()}"></p>
+  <button onclick="window.print()">Print</button>
+</body>
+</html>

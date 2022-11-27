@@ -12,4 +12,6 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Long>
     Set<Appointment> findByDoctor(Doctor d);
     Set<Appointment> findByPatient(Patient p);
     Set<Appointment> findByDoctorAndStatus(Doctor d, Status s);
+    Set<Appointment> findByPatientAndStatus(Patient p,Status s);
+    Set<Appointment> findByPatientAndDoctor(Patient p, Doctor d);
 }

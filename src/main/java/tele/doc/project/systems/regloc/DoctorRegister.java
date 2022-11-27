@@ -1,5 +1,6 @@
 package tele.doc.project.systems.regloc;
 
+import org.apache.commons.validator.routines.IBANValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -129,19 +130,11 @@ public class DoctorRegister implements RegisterSystem {
             return false;
         }
 
-        if(IBAN.length() != 16)
+        IBANValidator IV = new IBANValidator();
+        if(!IV.isValid(IBAN))
         {
-            Visitor.errorMessage="IBAN invalid";
+            Visitor.errorMessage = "Invalid IBAN";
             return false;
-        }
-
-        for (int it = 0; it < IBAN.length(); it++)
-        {
-            if (IBAN.charAt(it) > '9' || IBAN.charAt(it) < '0')
-            {
-                Visitor.errorMessage="IBAN invalid";
-                return false;
-            }
         }
 
         return true;

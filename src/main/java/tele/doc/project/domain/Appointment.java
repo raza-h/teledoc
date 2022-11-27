@@ -67,6 +67,7 @@ public class Appointment {
 
     public Appointment(){
         isPaid = false;
+        status = Status.pending;
     }
 
     public Appointment(Date date, Time time, boolean isPaid, float amount, String link, Status status) {

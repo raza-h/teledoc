@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Page</title>
+</head>
+<body>
+    <form method="post" th:object="${payment}">
+        Card Holder's Name
+        <br>
+        <input type = "text" name = "name">
+        <br>
+        <br>
+        Credit Card Number
+        <br>
+        <input type="text" name="ccNum">
+        <br>
+        <br>
+        CVV/CVC
+        <br>
+        <input type="text" name="CVV">
+        <br>
+        <br>
+        Expiry Date
+        <br>
+        <input name="month" type="number" placeholder="mm">
+        <input name="year" type="number" placeholder="yyyy">
+        <br>
+        <br>
+        Address
+        <br>
+        <input name="address" type = "text">
+        <br>
+        <br>
+        <button>Pay</button>
+    </form>
+</body>
+</html>

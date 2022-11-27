@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Set;
 
 
 public class MedicalHistoryUploader {
@@ -48,4 +49,16 @@ public class MedicalHistoryUploader {
         mhrr.save(mhr1);
         return true;
     }
+
+    public Patient getPatient(String username)
+    {
+        return pr.findByUsername(username);
+    }
+
+    public Set<MedicalHistoryRecord> getMH(Patient p)
+    {
+        return mhrr.findByPatient(p);
+    }
+
+
 }

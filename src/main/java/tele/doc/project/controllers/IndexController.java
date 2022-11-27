@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import tele.doc.project.domain.*;
 import tele.doc.project.repositories.*;
+import tele.doc.project.systems.others.MedicalHistoryUploader;
 import tele.doc.project.systems.others.SearchSystem;
 
 import javax.print.Doc;
@@ -26,9 +27,12 @@ public class IndexController {
     private final SuperAdminRepository sr;
     private final MedicalHistoryRecordRepository mhrr;
     private final AppointmentRepository apr;
+    private final PrescriptionRepository prr;
 
     @Autowired
     SearchSystem ss;
+
+    MedicalHistoryUploader mhu;
 
 
     @Bean(name = "multipartResolver")
@@ -38,13 +42,14 @@ public class IndexController {
         return multipartResolver;
     }
 
-    public IndexController(DoctorRepository dr, PatientRepository pr, AdminRepository ar, SuperAdminRepository sr, MedicalHistoryRecordRepository mhrr, AppointmentRepository apr) {
+    public IndexController(DoctorRepository dr, PatientRepository pr, AdminRepository ar, SuperAdminRepository sr, MedicalHistoryRecordRepository mhrr, AppointmentRepository apr, PrescriptionRepository prr) {
         this.pr = pr;
         this.ar = ar;
         this.sr = sr;
         this.dr = dr;
         this.mhrr = mhrr;
         this.apr = apr;
+        this.prr = prr;
     }
 
     @RequestMapping("/")
@@ -343,5 +348,61 @@ public class IndexController {
         model.addAttribute("appointment", ap.get());
         return "patient/appointment";
     }
+
+    @RequestMapping("/renewPrescription")
+    public String RenewPrescription(Model model)
+    {
+        //get appointments of patient whose status is removed
+        Patient p=pr.findByUsername(Visitor.currentUser);
+        Set<Appointment> appointments1=apr.findByPatientAndStatus(p,Status.removed);
+        model.addAttribute("appointments",appointments1);
+        return "patient/RenewPrescription";
+    }
+
+    @RequestMapping("/renewAppointment")
+    public String renewAppointment(Model model)
+    {
+
+        return "patient/renewAppointment";
+    }
+
+    @RequestMapping("/p-prescription/{id}")
+    public String prescriptionDeets(Model model, @PathVariable("id") Long id)
+    {
+        Optional<Prescription> pres = prr.findById(id);
+        if(pres.get() != null)
+        {
+            Prescription prescription = pres.get();
+            model.addAttribute("prescription", prescription);
+            return "patient/prescription";
+        }
+
+        Visitor.errorMessage = "Prescription doesn't exist yet";
+        return "redirect:/problem";
+    }
+
+    @RequestMapping("/patient-list-d/{username}")
+    public String viewMH(Model model, @PathVariable("username") String username)
+    {
+        mhu = new MedicalHistoryUploader(pr, mhrr);
+        Patient p = mhu.getPatient(username);
+        Set<MedicalHistoryRecord> mh = mhu.getMH(p);
+        model.addAttribute("patient", p);
+        model.addAttribute("records", mh);
+        return "doctor/patient-info";
+    }
+
+    @RequestMapping("/provideRating")
+    public String provideRating()
+    {
+        return "patient/provideRating";
+    }
+
+    @RequestMapping("/patient-verification")
+    public String patientVerify()
+    {
+        return "patient/patient-verification";
+    }
+
 
 }

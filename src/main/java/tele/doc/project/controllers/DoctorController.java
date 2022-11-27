@@ -1,14 +1,17 @@
 package tele.doc.project.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tele.doc.project.domain.*;
 import tele.doc.project.repositories.AppointmentRepository;
 import tele.doc.project.repositories.DoctorRepository;
 import tele.doc.project.repositories.PrescriptionRepository;
 import tele.doc.project.systems.others.DecideAppointmentSystem;
+import tele.doc.project.systems.others.PaymentSystem;
 import tele.doc.project.systems.others.PrescriptionCreationSystem;
 import java.io.IOException;
 import java.text.ParseException;
@@ -23,7 +26,6 @@ public class DoctorController {
     PrescriptionCreationSystem pcs;
     Status status;
     DecideAppointmentSystem das;
-
     DoctorController(DoctorRepository dr, AppointmentRepository ar, PrescriptionRepository pr)
     {
         this.dr = dr; this.ar=ar; this.pr=pr;

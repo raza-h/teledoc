@@ -1,6 +1,7 @@
 package tele.doc.project.domain;
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -135,9 +136,23 @@ public class Doctor extends Person{
 
     }
 
-    public float calcRating()
+
+    public void calcRating()
     {
-        return 0;
+        float num = 0;
+        if (reviews.size() != 0)
+        {
+            Iterator<Review> it = reviews.iterator();
+
+            while(it.hasNext())
+            {
+                Review a = it.next();
+                num += a.getRating();
+            }
+            num /= reviews.size();
+            rating = num;
+        }
+        //return num;
     }
 
     public boolean prescribeMedicine(Appointment a)

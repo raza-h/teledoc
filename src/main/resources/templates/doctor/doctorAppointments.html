@@ -65,6 +65,11 @@
       background-color: rgb(10, 113, 216);
     }
 
+    a
+    {
+      color: black;
+    }
+
   </style>
 </head>
 <body>
@@ -82,7 +87,7 @@
   <tr th:each="app : ${appointments}">
     <!--    <td th:text="${app.getId()}"></td>-->
     <td th:text="${app.getDate()}"></td>
-    <td th:text="${app.getPatient().getUsername()}"></td>
+    <td><a th:href = "${'/patient-list-d/' + app.getPatient().getUsername()}" th:text="${app.getPatient().getName()}"></a></td>
     <td>
       <form th:method="post" th:object="${selected}">
         <input th:name = "id" type="hidden" th:value = "${app.getId()}"/>

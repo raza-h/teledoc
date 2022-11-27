@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment</title>
+    <link rel = "icon" th:href = "@{/favicon.png}">
+    <style>
+        body,html
+        {
+            height: 96%;
+        }
+        body{
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(to right, rgba(231,231,231,255), rgba(241,241,241,241));
+        }
+
+        form
+        {
+            width: 25%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 3rem;
+            background-color: rgb(0, 153, 248);
+            border-radius: 5px;
+            color:white;
+            font-size: small;
+        }
+
+        input
+        {
+            margin-top: 2px;
+            padding: 0.2rem 0.1rem 0.2rem 0.1rem;
+            border-radius: 3px;
+            border: 3px solid white;
+            width: 98%;
+        }
+
+        .file-field
+        {
+            margin-top:2px;
+            padding: 0.2rem 0rem 0.2rem 0rem;
+        }
+
+        select{
+            width: 100%;
+            padding: 0.2rem 0rem 0.2rem 0rem;
+            border-radius: 3px;
+            border: 2px solid white;
+        }
+
+        h2
+        {
+            margin:0;
+            font-weight: lighter;
+            text-align: center;
+        }
+
+        button
+        {
+            width: 96%;
+            padding: 0.2rem 0rem 0.2rem 0rem;
+            border-radius: 10px;
+            border: 1px solid #0d76ae;
+            background-color: #0d76ae;
+            color:white;
+            transition: background-color 100ms ease;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button:hover
+        {
+            background-color: dodgerblue;
+            border: 1px solid white;
+            color:white;
+        }
+
+        h2
+        {
+            margin:0;
+            font-weight: lighter;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<form method = "post">
+    <h2>Appointment Booking</h2>
+    <br>
+    <br>
+    Date
+    <br>
+    <input type ="date" name="date">
+    <br>
+    <br>
+    Time
+    <br>
+    <input type = "time" name="time">
+    <br>
+    <br>
+    <br>
+    <button>Book</button>
+</form>
+</body>
+</html>
