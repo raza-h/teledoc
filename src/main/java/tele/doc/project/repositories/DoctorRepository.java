@@ -15,4 +15,7 @@ public interface DoctorRepository extends CrudRepository<Doctor, Long> {
     @Query("SELECT distinct d.Specialization from Doctor d")
     Set<String> findAllBySpecialization();
 
+    @Query(value = "SELECT * FROM Doctor d WHERE d.status = 0 ORDER BY d.rating DESC", nativeQuery = true)
+    Set<Doctor> sortedByRating();
+
 }

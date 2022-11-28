@@ -108,7 +108,7 @@
     </thead>
     <tbody>
     <tr th:each="doc : ${doctor}">
-        <td th:text="${doc.getName()}"></td>
+        <td><a th:href = "${'/doctor-list-sa/' + doc.getUsername()}" th:text="${doc.getName()}"></a></td>
         <td th:text="${doc.getUsername()}"></td>
         <td th:text="${doc.getSpecialization()}"></td>
         <td>

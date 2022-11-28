@@ -32,6 +32,12 @@ public class BookAppointmentSystem {
     }
 
     public boolean checkDate(Doctor d, Date date){
+//        Date date1 = new Date();
+//        if(date.getTime() < date1.getTime() + 1800000)
+//        {
+//            Visitor.errorMessage = "There must be atleast half hour gap between booking & appointment";
+//              return false;
+//        }
         Set<Appointment> a = ar.findByDoctor(d);
         Set<Appointment> filtered = new HashSet<>();
         Iterator<Appointment> fit = a.iterator();

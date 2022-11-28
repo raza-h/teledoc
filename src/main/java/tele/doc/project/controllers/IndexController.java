@@ -29,6 +29,9 @@ public class IndexController {
     private final AppointmentRepository apr;
     private final PrescriptionRepository prr;
 
+    private final EducationRecordRepository edr;
+    private final ReviewRepository rr;
+
     @Autowired
     SearchSystem ss;
 
@@ -42,7 +45,7 @@ public class IndexController {
         return multipartResolver;
     }
 
-    public IndexController(DoctorRepository dr, PatientRepository pr, AdminRepository ar, SuperAdminRepository sr, MedicalHistoryRecordRepository mhrr, AppointmentRepository apr, PrescriptionRepository prr) {
+    public IndexController(DoctorRepository dr, PatientRepository pr, AdminRepository ar, SuperAdminRepository sr, MedicalHistoryRecordRepository mhrr, AppointmentRepository apr, PrescriptionRepository prr, EducationRecordRepository edr, ReviewRepository rr) {
         this.pr = pr;
         this.ar = ar;
         this.sr = sr;
@@ -50,6 +53,8 @@ public class IndexController {
         this.mhrr = mhrr;
         this.apr = apr;
         this.prr = prr;
+        this.edr = edr;
+        this.rr = rr;
     }
 
     @RequestMapping("/")
@@ -161,6 +166,16 @@ public class IndexController {
         model.addAttribute("patient", p);
         model.addAttribute("records", mhrr.findByPatient(p));
         return "patient/info";
+    }
+
+    @RequestMapping("/doctor-personal-info")
+    public String personalInfo_d(Model model)
+    {
+        Doctor d = dr.findByUsername(Visitor.currentUser);
+        model.addAttribute("doctor", d);
+        model.addAttribute("records", edr.findByDoctor(d));
+        model.addAttribute("reviews", rr.findByDoctor(d));
+        return "doctor/info";
     }
 
     @RequestMapping("/patient-add-history")
@@ -404,5 +419,36 @@ public class IndexController {
         return "patient/patient-verification";
     }
 
+    @RequestMapping("/doctor-list-sa/{username}")
+    public String docView(Model model, @PathVariable("username") String u)
+    {
+        Doctor d = dr.findByUsername(u);
+        model.addAttribute("doctor", d);
+        model.addAttribute("records", edr.findByDoctor(d));
+        model.addAttribute("reviews", rr.findByDoctor(d));
+        model.addAttribute("appointments", apr.findByDoctor(d));
+        return "superadmin/doctor-info";
+    }
+
+    @RequestMapping("/statistics")
+    public String statistics(Model model)
+    {
+        Set<Doctor> it = dr.sortedByRating();
+
+        int count1 = it.size();
+
+        Iterable<Patient> it2 = pr.findAll();
+        int count2 = 0;
+
+        for (Patient p : it2)
+        {
+            count2++;
+        }
+
+        model.addAttribute("numD", count1);
+        model.addAttribute("numP", count2);
+        model.addAttribute("doctors", dr.sortedByRating());
+        return "superadmin/statistics";
+    }
 
 }

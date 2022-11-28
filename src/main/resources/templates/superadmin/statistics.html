@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "icon" th:href = "@{/favicon.png}">
+    <title>Statistics</title>
+  <style>
+
+    body
+    {
+      font-family: sans-serif;
+    }
+    div
+    {
+      padding: 5rem;
+      background-color: rgba(25, 142, 225, 0.42);
+      border-radius: 1rem;
+      font-size: xx-large;
+      color: rgba(255,255,255, 0.6);
+      margin: 2rem auto;
+      width: 70%;
+
+    }
+    h2
+    {
+      text-align: center;
+      font-weight: lighter;
+      color:rgba(104, 94, 94, 0.3);
+      font-size: xx-large;
+    }
+
+    span
+    {
+      color: white;
+      float: right;
+    }
+
+    #top-rated
+    {
+      float: none;
+    }
+
+    table
+    {
+      width: fit-content;
+      margin: 2rem auto 1rem auto;
+    }
+
+    td
+    {
+      font-size: x-large;
+      padding: 0.3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgb(255,255,255,0.3);
+    }
+
+    a
+    {
+        color: white;
+    }
+
+
+  </style>
+</head>
+<body>
+<h2>Statistics</h2>
+<div>
+  Number of Doctors <span th:text="${numD}"></span>
+</div>
+<div>
+  Number of Patients <span th:text="${numP}"></span>
+</div>
+<div>
+  Top Rated Doctors
+  <span id="top-rated">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Rating</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="doc : ${doctors}">
+                        <td><a th:text="${doc.getName()}" th:href="${'/doctor-list-sa/' + doc.getUsername()}"></a></td>
+                        <td th:text="${doc.getRating()}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </span>
+</div>
+</body>
+</html>

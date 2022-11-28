@@ -5,17 +5,103 @@
     <title>Personal Information</title>
     <link rel = "icon" th:href = "@{/favicon.png}">
     <style>
-      h1
-      {
-        text-align: center;
-      }
+        body
+        {
+            font-family: sans-serif;
+        }
+        h2
+        {
+            text-align: center;
+        }
+
+        #bio-data
+        {
+            margin: 0 auto 0 auto;
+            width: 80%;
+            padding-top: 2.5rem;
+        }
+
+        th, td
+        {
+            padding: 0.5rem 2rem 0.5rem 2rem;
+            text-align: center;
+            background-color: rgb(233,233,233,255);
+        }
+
+        th
+        {
+            font-weight:400;
+        }
+
+        table
+        {
+            width: 100%;
+            font-family: sans-serif;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .first-row
+        {
+            border-bottom: 1px solid black;
+        }
+
     </style>
 </head>
 <body>
-  <h1>Personal Information</h1>
-  <div id = "bio-data">
-    <h2 th:text="${doctor.getName()}"></h2>
-    <h3 th:text="${doctor.getEmail()}"></h3>
-  </div>
+<h2>Personal Information</h2>
+<div id = "bio-data">
+    <h3 th:text="${doctor.getName()}"></h3>
+    <p th:text="${doctor.getEmail()}"></p>
+    <p th:text="${doctor.getIBAN()}"></p>
+    <p th:text="${doctor.getAddress()}"></p>
+    <p th:text="${doctor.getSpecialization()}"></p>
+    <p th:text="${doctor.getRating()}"></p>
+    <p th:text="${doctor.getQualification()}"></p>
+    <br>
+    <br>
+    <h3>Education</h3>
+    <table>
+        <thead>
+        <tr class = "first-row">
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Institute</th>
+            <th>Programme</th>
+            <th>File</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="record : ${records}">
+            <td th:text="${record.getStartDate()}"></td>
+            <td th:text="${record.getEndDate()}"></td>
+            <td th:text="${record.getInstitute()}"></td>
+            <td th:text="${record.getProgramme()}"></td>
+            <td><a th:href = "@{'data:image/png;base64,' + ${record.getFile()}}" download><button>Download</button></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <h3>Reviews</h3>
+    <table>
+        <thead>
+        <tr class = "first-row">
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Rating</th>
+            <th>Review</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="record : ${reviews}">
+            <td th:text="${record.getPatient().getName()}"></td>
+            <td th:text="${record.getDate()}"></td>
+            <td th:text="${record.getRating()}"></td>
+            <td th:text="${record.getReview()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
