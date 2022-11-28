@@ -101,6 +101,25 @@
             <td th:text="${record.getReview()}"></td>
         </tr>
         </tbody>
+
+    </table>
+    <br>
+    <br>
+    <h3>Appointments</h3>
+    <table>
+        <thead>
+        <tr class = "first-row">
+            <th>Patient</th>
+            <th>Timing</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="record : ${appointments}">
+            <td th:text="${record.getPatient().getName()}"></td>
+            <td th:text="${record.getDate() + ' - ' + record.getTime()}"></td>
+        </tr>
+        </tbody>
+
     </table>
 </div>
 </body>

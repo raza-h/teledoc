@@ -109,6 +109,26 @@
             </tbody>
         </table>
     </div>
-
+    <div class="stripes">
+        <h3>Reviews</h3>
+        <table>
+            <thead>
+            <tr id = "first-row">
+                <th>Patient</th>
+                <th>Date</th>
+                <th>Rating</th>
+                <th>Review</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="record : ${reviews}">
+                <td th:text="${record.getPatient().getName()}"></td>
+                <td th:text="${record.getDate()}"></td>
+                <td th:text="${record.getRating()}"></td>
+                <td th:text="${record.getReview()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

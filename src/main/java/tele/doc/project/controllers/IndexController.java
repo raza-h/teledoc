@@ -175,6 +175,7 @@ public class IndexController {
         model.addAttribute("doctor", d);
         model.addAttribute("records", edr.findByDoctor(d));
         model.addAttribute("reviews", rr.findByDoctor(d));
+        model.addAttribute("appointments", apr.findByDoctorAndStatus(d, Status.approved));
         return "doctor/info";
     }
 
@@ -277,6 +278,7 @@ public class IndexController {
 
         model.addAttribute("appointments", filtered);
         model.addAttribute("doctor", dr.findByUsername(username));
+        model.addAttribute("reviews", rr.findByDoctor(dr.findByUsername(username)));
         return "patient/doctor-info";
     }
 
@@ -450,5 +452,36 @@ public class IndexController {
         model.addAttribute("doctors", dr.sortedByRating());
         return "superadmin/statistics";
     }
+
+    @RequestMapping("/approvedAppointments")
+    public String approvedAppointments_d(Model model)
+    {
+        Doctor d = dr.findByUsername(Visitor.currentUser);
+        Set<Appointment> aps =  apr.findByDoctor(d);
+        Iterator<Appointment> it = aps.iterator();
+        Set<Appointment> selected = new HashSet<>();
+
+        while(it.hasNext())
+        {
+            Appointment a = it.next();
+            if(a.getStatus() == Status.approved || a.getStatus() == Status.removed)
+            {
+                selected.add(a);
+            }
+        }
+
+        model.addAttribute("appointments", selected);
+        return "doctor/approvedAppointments";
+    }
+
+    @RequestMapping("/d-appointment/{id}")
+    public String appointmentDetails_d(Model model, @PathVariable("id") Long id)
+    {
+        Optional<Appointment> p = apr.findById(id);
+        model.addAttribute("appointment", p.get());
+        model.addAttribute("approved", Status.approved);
+        return "doctor/appointment";
+    }
+
 
 }

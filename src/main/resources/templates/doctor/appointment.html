@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment</title>
+  <link rel = "icon" th:href = "@{/favicon.png}">
+  <style>
+    body
+    {
+      font-family: sans-serif;
+    }
+
+    button
+    {
+      padding: 0.4rem 1rem;
+      border-radius: 5px;
+      background-color: #0d76ae;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover
+    {
+      background-color: rgb(183, 176, 176);
+    }
+
+    form
+    {
+      display: inline;
+    }
+
+
+  </style>
+</head>
+<body>
+<div id="block">
+  <p th:text="${'Date and Time: ' + appointment.getDate() + ' - ' + appointment.getTime()}"></p>
+  <p th:text="${appointment.getPatient().getName()}"></p>
+  <p th:text="${appointment.getStatus()}"></p>
+  <p th:text="${'PKR ' + appointment.getAmount()}"></p>
+  <div>
+    <a th:target="${appointment.getStatus() == approved ? '_blank' : '_self'}" th:href="${appointment.getStatus() == approved ? appointment.getLink() : '#'}"><button id="meet">Join Meet</button></a>
+    <a th:href="${appointment.getPrescription()}?(${'/p-prescription/' + appointment.getPrescription().getId()}) : '#'"><button>Prescription</button></a>
+  </div>
+</div>
+
+</body>
+</html>
