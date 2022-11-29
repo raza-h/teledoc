@@ -5,12 +5,109 @@
   <title>Tele</title>
   <title>TeleDoc</title>
   <link rel = "icon" th:href = "@{/favicon.png}">
+  <style>
+    .finalize
+    {
+      padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+      border-radius: 0.19rem;
+      border: none;
+      color: white;
+      background-color: rgb(78, 181, 255);
+      cursor: pointer;
+      transition: background-color 50ms ease;
+    }
+
+    th, td
+    {
+      padding: 10px;
+      text-align: center;
+      background-color: rgb(233,233,233,255);
+    }
+
+    th
+    {
+      font-weight:400;
+    }
+
+    table
+    {
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: sans-serif;
+      border-collapse: collapse;
+    }
+
+    #first-row
+    {
+      border-bottom: 1px solid black;
+    }
+
+    select
+    {
+      padding: 0.1rem;
+    }
+
+    .a
+    {
+      background-color: green;
+      color: white;
+    }
+
+    .r
+    {
+      background-color: red;
+      color: white;
+    }
+
+    .finalize:hover{
+      background-color: rgb(10, 113, 216);
+    }
+
+    a
+    {
+      color: black;
+    }
+
+    .first-row
+    {
+      border-bottom: 1px solid black;
+    }
+
+    h1
+    {
+      margin-top: 3rem;
+      text-align: center;
+      font-family: sans-serif;
+      font-weight: lighter;
+    }
+
+  </style>
 </head>
 <body>
-<div th:each="ad : ${admin}">
-  <h1 th:text="${ad.getUsername()}"></h1>
-  <h2 th:text="${ad.getEmail()}"></h2>
-  <p th:text="${ad.getAddress()}"></p>
-</div>
+  <h1>Patients</h1>
+  <br>
+  <br>
+  <table>
+    <thead>
+      <tr class = "first-row">
+        <th>Patient</th>
+        <th>Username</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="pat:${patients}">
+        <td><a th:text="${pat.getName()}" th:href="${'/patient-list-a/' + pat.getUsername()}"></a></td>
+        <td th:text="${pat.getUsername()}"></td>
+        <td>
+          <form method ="post">
+            <input th:value="${pat.getUsername()}" type = "hidden" name="u">
+            <button class = "finalize">Remove</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>

@@ -41,7 +41,7 @@ public class IndexController {
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(100000);
+        multipartResolver.setMaxUploadSize(100000000);
         return multipartResolver;
     }
 
@@ -125,7 +125,23 @@ public class IndexController {
     {
         System.out.println(Visitor.currentUser);
         model.addAttribute("admin", ar.findByUsername(Visitor.currentUser));
+        Iterable<Patient> p = pr.findAll();
+        Set<Patient> ps = new HashSet<>();
+        Iterator<Patient> it = p.iterator();
+        while(it.hasNext())
+        {
+            ps.add(it.next());
+        }
+        model.addAttribute("patients", ps);
         return "admin/home";
+    }
+
+    @RequestMapping("/patient-list-a/{username}")
+    public String pReviews(@PathVariable("username") String u, Model model)
+    {
+        model.addAttribute("patient", pr.findByUsername(u));
+        model.addAttribute("reviews", rr.findByPatient(pr.findByUsername(u)));
+        return "admin/patient-info";
     }
 
     @RequestMapping("/superadmin")

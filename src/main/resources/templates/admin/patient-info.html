@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Reviews</title>
+    <link rel = "icon" th:href = "@{/favicon.png}">
+    <style>
+      body
+      {
+        font-family: sans-serif;
+        padding: 2rem;
+      }
+      h2
+      {
+        text-align: center;
+      }
+
+      #bio-data
+      {
+        margin: 0 auto 0 auto;
+        width: 80%;
+        padding-top: 2.5rem;
+      }
+
+      th, td
+      {
+        padding: 0.5rem 2rem 0.5rem 2rem;
+        text-align: center;
+        background-color: rgb(233,233,233,255);
+      }
+
+      th
+      {
+        font-weight:400;
+      }
+
+      table
+      {
+        width: 100%;
+        font-family: sans-serif;
+        border-collapse: collapse;
+        margin-top: 2rem;
+      }
+
+      .first-row
+      {
+        border-bottom: 1px solid black;
+      }
+    </style>
+</head>
+<body>
+  <div>
+    <h3 th:text="${patient.getName()}"></h3>
+    <p th:text="${patient.getEmail()}"></p>
+    <p th:text="${patient.getUsername()}"></p>
+  <br>
+  <h3>Reviews</h3>
+  <table>
+    <thead>
+      <tr class="first-row">
+        <th>Review</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="re : ${reviews}">
+        <td th:text="${re.getReview()}"></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</body>
+</html>
