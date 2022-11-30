@@ -89,7 +89,7 @@
   <p th:text="${'Date and Time: ' + appointment.getDate() + ' - ' + appointment.getTime()}"></p>
   <p th:text="${appointment.getPatient().getName()}"></p>
   <p th:text="${appointment.getStatus()}"></p>
-  <p th:text="${'PKR ' + appointment.getAmount()}"></p>
+  <p th:text="${'USD ' + appointment.getAmount()}"></p>
   <div>
     <a th:target="${appointment.getStatus() == approved ? '_blank' : '_self'}" th:href="${appointment.getStatus() == approved ? appointment.getLink() : '#'}"><button id="meet">Join Meet</button></a>
     <a th:href="${appointment.getPrescription()}?(${'/p-prescription/' + appointment.getPrescription().getId()}) : '#'"><button>Prescription</button></a>

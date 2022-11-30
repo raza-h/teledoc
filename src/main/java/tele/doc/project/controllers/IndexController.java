@@ -501,5 +501,10 @@ public class IndexController {
         return "doctor/appointment";
     }
 
+    @RequestMapping("/charge-home")
+    public String chargeHome()
+    {
+        return "redirect:/patient";
+    }
 
 }
