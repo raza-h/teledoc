@@ -6,7 +6,8 @@
       <link rel = "icon" th:href = "@{/favicon.png}">
       <style>
           body{
-          margin:0;
+            margin: 0;
+            padding: 0;
       }
       th, td
       {
@@ -101,9 +102,59 @@
           border-radius: 3px;
           border: 2px solid white;
       }
+          .nav
+          {
+            display: grid;
+            padding: 0.3rem 0.4rem;
+            background-color: rgba(0, 163, 240, 0.732);
+            grid-template-columns: auto auto;
+          }
+
+          .links
+          {
+            color: white;
+            padding-top: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+          }
+
+          .username
+          {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-self: flex-end;
+            padding: 0.1rem 0.2rem 0rem 0.2rem;
+            width: 50%;
+          }
+
+          #log-out
+          {
+            padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+            border-radius: 0.19rem;
+            border: none;
+            color: white;
+            background-color: rgb(255, 101, 78);
+            cursor: pointer;
+          }
+
+          #log-out:hover{
+            background-color: rgb(255, 75, 47);
+          }
+          img
+          {
+            padding-top: 0.1rem;
+            width: 2rem;
+          }
       </style>
 </head>
 <body>
+<div class = "nav">
+  <a href = "/patient"><img src = "favicon.PNG"></a>
+  <div class = "username">
+    <a href = "/"><button id = "log-out">Log Out</button></a>
+  </div>
+</div>
 <form method = "post">
   <table>
     <thead>

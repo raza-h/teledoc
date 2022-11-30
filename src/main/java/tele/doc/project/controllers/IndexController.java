@@ -61,6 +61,8 @@ public class IndexController {
     public String index()
     {
         Date date = new Date();
+        Visitor.currentUser="";
+        Visitor.userType="";
         return "all/home";
     }
 

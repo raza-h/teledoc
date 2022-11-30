@@ -62,7 +62,7 @@
             display: grid;
             padding: 0.3rem 0.4rem;
             background-color: rgba(0, 163, 240, 0.732);
-            grid-template-columns: auto auto auto;
+            grid-template-columns: auto auto;
         }
 
         .links
@@ -70,13 +70,17 @@
             color: white;
             padding-top: 0.5rem;
             display: flex;
+            flex-direction: row;
             justify-content: space-around;
         }
 
         .username
         {
+            display: flex;
+            flex-direction: row-reverse;
             justify-self: flex-end;
             padding: 0.1rem 0.2rem 0rem 0.2rem;
+            width: 50%;
         }
 
         #log-out
@@ -135,12 +139,9 @@
 </head>
 <body>
 <div class = "nav">
-    <img src = "favicon.PNG">
-    <div class = "links">
-        <a class="link">Home</a>
-    </div>
+    <a href = "/doctor"><img src = "favicon.PNG"></a>
     <div class = "username">
-        <button id = "log-out">Log Out</button>
+        <a href = "/"><button id = "log-out">Log Out</button></a>
     </div>
 </div>
 <div class = "flex">
