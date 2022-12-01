@@ -63,6 +63,40 @@ public class IndexController {
         Date date = new Date();
         Visitor.currentUser="";
         Visitor.userType="";
+        Iterable<SuperAdmin> sas = sr.findAll();
+        Iterator<SuperAdmin> it = sas.iterator();
+        Set<SuperAdmin> sa = new HashSet<>();
+
+        Iterable<Admin> as = ar.findAll();
+        Iterator<Admin> it2 = as.iterator();
+        Set<Admin> aa = new HashSet<>();
+
+        while (it.hasNext())
+        {
+            sa.add(it.next());
+        }
+
+        while(it2.hasNext())
+        {
+            aa.add(it2.next());
+        }
+
+        if (sa.size()==0)
+        {
+            SuperAdmin s = new SuperAdmin();
+            s.setUsername("user");
+            s.setPassword("abcd1234");
+            sr.save(s);
+        }
+
+        if (aa.size() == 0)
+        {
+            Admin a = new Admin();
+            a.setUsername("user");
+            a.setPassword("abcd1234");
+            ar.save(a);
+        }
+
         return "all/home";
     }
 
